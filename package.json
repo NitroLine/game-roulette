@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "chess.js": "^0.13.2",
+    "express": "^4.18.1",
+    "socket.io": "^4.5.0"
+  },
+  "scripts": {
+    "start": "node main.js"
+  }
+}
