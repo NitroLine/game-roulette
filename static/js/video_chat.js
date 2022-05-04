@@ -42,7 +42,7 @@ peer.on('call', function (call) {
 });
 
 chatList = [];
-function sendMassage() {
+function sendMessage() {
     let newmes = document.getElementById('inputmess').value;
     document.getElementById('inputmess').value = '';
     if (conn && conn.open) {
