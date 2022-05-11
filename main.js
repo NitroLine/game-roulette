@@ -1,9 +1,9 @@
 const express = require('express')
-const path = require("path");
-const http = require("http");
-const socketIO = require("socket.io")
-const app = express()
-const port = 3000
+const path = require('path');
+const http = require('http');
+const socketIO = require('socket.io');
+const app = express();
+const port = 3000;
 
 const server = http.Server(app).listen(port);
 const io = socketIO(server);
@@ -40,7 +40,3 @@ io.on("connection", (socket) => {
 
 
 app.use('/', express.static(path.join(__dirname, 'static')))
-
-// app.listen(port, () => {
-//     console.log(`Example app listening on port ${port}`)
-// })
