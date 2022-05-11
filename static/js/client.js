@@ -9,8 +9,8 @@ socket.on("hello from server", (...args) => {
     console.log(args);
 });
 
-socket.on("joinGame", peerId => {
-    connect(peerId);
+socket.on("joinGame", async (peerId) => {
+    await video.connect(peerId);
 })
 
 socket.on("leavePartner", () => {
