@@ -1,13 +1,15 @@
 const peer = new Peer();
+
 const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 let conn;
 
 peer.on('open', function (peerID) {
     document.getElementById('uuid').innerHTML = peerID;
+    socket.emit("addToQueue", peerID);
 });
 
-function connect() {
-    conn = peer.connect(document.getElementById('peersID').value);
+function connect(peerId) {
+    conn = peer.connect(peerId);
     conn.on('open', function () {
         document.getElementById('status').innerHTML = "connected";
     });
@@ -18,7 +20,7 @@ function connect() {
     getUserMedia({ screen: true, audio: true }, function (stream) {
         document.getElementById("local-video").srcObject = stream;
         //document.getElementById("local-video").play();
-        let call = peer.call(document.getElementById('peersID').value, stream);
+        let call = peer.call(peerId, stream);
         call.on('stream', function (remoteStream) {
             document.getElementById("remote-video").srcObject = remoteStream;
             //document.getElementById("remote-video").play();

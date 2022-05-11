@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+</head>
+<body>
+<div id="menu">
+    <p>Your ID:</p>
+    <p id="uuid"></p>
+    <input id="peersID" type="text" placeholder="Peer id"/>
+    <button onclick="connect()">Connect</button>
+</div>
+<div id="live">
+    <video id="remote-video" autoplay></video>
+    <video id="local-video" autoplay></video>
+</div>
+
+<div id="status"></div>
+<div id="messages" class="chat">
+    <div class="right">My</div>
+    <div class="left">partner</div>
+</div>
+<textarea id="inputmess" rows="4" class="messbox"></textarea><br>
+<button onclick="sendMassage()" class="btn">Send</button>
+<script src="../js/client.js"></script>
+<script src="../js/video_chat.js"></script>
+</body>
+
+</html>
