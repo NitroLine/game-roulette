@@ -17,7 +17,7 @@ function connect(peerId) {
         chatList.push('2 ' + data);
         document.getElementById('messages').innerHTML = chatList.join("<br>");
     })
-    getUserMedia({ screen: true, audio: true }, function (stream) {
+    getUserMedia({screen: true, audio: true}, function (stream) {
         document.getElementById("local-video").srcObject = stream;
         //document.getElementById("local-video").play();
         let call = peer.call(peerId, stream);
@@ -30,7 +30,7 @@ function connect(peerId) {
 }
 
 peer.on('call', function (call) {
-    getUserMedia({ screen: true, audio: true }, function (stream) {
+    getUserMedia({screen: true, audio: true}, function (stream) {
         document.getElementById("local-video").srcObject = stream;
         //document.getElementById("local-video").play();
         call.answer(stream); // Answer the call with an A/V stream.
@@ -44,6 +44,7 @@ peer.on('call', function (call) {
 });
 
 chatList = [];
+
 function sendMessage() {
     let newmes = document.getElementById('inputmess').value;
     document.getElementById('inputmess').value = '';
