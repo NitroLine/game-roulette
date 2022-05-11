@@ -46,12 +46,12 @@ class VideoClient{
 
     }
 
-    startLocalStream(constraints = {camera: true, audio: true }){
+    startLocalStream(constraints = {video: false, audio: true }){
 
         return new Promise((resolve, reject) => {
             getUserMedia(constraints, (stream) => {
                 this.localStream = stream;
-                this.events.emit('localstreamupdate', this.localStream);
+                this.events.emit('localstreamupdate', stream);
                 resolve(stream);
             }, (err)=> reject(err))
         });
@@ -92,7 +92,7 @@ class VideoClient{
                 call.answer(this.localStream); // Answer the call with an A/V stream.
                 call.on('stream', (remoteStream) => {
                     this.remoteStream = remoteStream;
-                    this.events.emit('remotestreamupdate', this.remoteStream);
+                    this.events.emit('remotestreamupdate', remoteStream);
                 });
                 this.call = call;
             }
@@ -164,6 +164,7 @@ class VideoClient{
             this.call = call;
             call.on('stream', (remoteStream) => {
                 this.remoteStream = remoteStream;
+                this.events.emit('remotestreamupdate', remoteStream);
             });
         }
         catch (err) {

@@ -1,7 +1,6 @@
 const video = new VideoClient(true);
 
 async function init(){
-    await video.startLocalStream();
     video.events.on('localstreamupdate', (stream) => {
         document.getElementById("local-video").srcObject = stream;
     });
@@ -26,6 +25,7 @@ async function init(){
         chatList.push('2 ' + data);
         document.getElementById('messages').innerHTML = chatList.join("<br>");
     });
+    await video.startLocalStream();
     video.init();
 }
 chatList = [];
