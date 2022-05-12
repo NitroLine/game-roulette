@@ -25,12 +25,6 @@ io.on("connection", (socket) => {
             queue.push(peerId);
         }
     });
-
-    // receive a message from the client
-    socket.on("hello from client", (...args) => {
-        // ...
-        console.log(args);
-    });
     socket.on("disconnect", () => {
         queue = queue.filter(v => v !== roomId);
         socket.to(roomId).emit("leavePartner");

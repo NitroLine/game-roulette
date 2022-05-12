@@ -1,4 +1,5 @@
 const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || 0;
+
 class EventEmitter {
     constructor() {
         this.events = {};
@@ -31,7 +32,7 @@ class EventEmitter {
     }
 }
 
-class VideoClient{
+class VideoClient {
     constructor(_debug = true) {
         this.conn = null;
         this.myPeerId = null;
@@ -46,18 +47,17 @@ class VideoClient{
 
     }
 
-    startLocalStream(constraints = {video: true, audio: true }){
-
+    startLocalStream(constraints = {video: false, audio: true}) {
         return new Promise((resolve, reject) => {
             getUserMedia(constraints, (stream) => {
                 this.localStream = stream;
                 this.events.emit('localstreamupdate', stream);
                 resolve(stream);
-            }, (err)=> reject(err))
+            }, (err) => reject(err))
         });
     }
 
-    stopLocalStream(){
+    stopLocalStream() {
         if (this.localStream) {
             this.localStream.getTracks().forEach(function (track) {
                 track.stop();
@@ -65,14 +65,14 @@ class VideoClient{
         }
     }
 
-    toggleAudio(audioState){
-        if(this.localStream)
+    toggleAudio(audioState) {
+        if (this.localStream)
             this.localStream.getAudioTracks()[0].enabled = audioState;
     }
 
 
-    initPeer(){
-        if (this.peer && !this.peer.destroyed){
+    initPeer() {
+        if (this.peer && !this.peer.destroyed) {
             this.peer.destroy()
             this.peer = null;
         }
@@ -95,15 +95,14 @@ class VideoClient{
                     this.events.emit('remotestreamupdate', remoteStream);
                 });
                 this.call = call;
-            }
-            catch (err) {
+            } catch (err) {
                 console.error('Error on call invite', err);
             }
         });
 
         this.peer.on('connection', (c) => {
             this.conn = c;
-            this.conn.on('open', ()  => {
+            this.conn.on('open', () => {
                 this.status = 'connected';
                 this.events.emit('connected');
                 this.conn.on('data', (data) => {
@@ -111,7 +110,7 @@ class VideoClient{
                     this.events.emit('data', data);
                 })
             });
-            this.conn.on('close', ()=>{
+            this.conn.on('close', () => {
                 this.debug('close in conn 2')
                 this.status = 'open';
                 this.remoteStream = null;
@@ -121,20 +120,21 @@ class VideoClient{
         });
     }
 
-    sendMessage(message){
+    sendMessage(message) {
 
     }
 
-    init(){
+    init() {
         this.initPeer();
     }
 
-    debug(message){
-        if (this._debug){
-            console.log('Video|| - ',message)
+    debug(message) {
+        if (this._debug) {
+            console.log('Video|| - ', message)
         }
     }
-    async connect(peerId){
+
+    async connect(peerId) {
         if (this.peer.destroyed) {
             this.debug(`Calling connect for destroyed peer with peerId ${peerId}`)
             return
@@ -166,13 +166,12 @@ class VideoClient{
                 this.remoteStream = remoteStream;
                 this.events.emit('remotestreamupdate', remoteStream);
             });
-        }
-        catch (err) {
+        } catch (err) {
             console.error('Error on connect', err);
         }
     }
 
-    close(){
+    close() {
         this.conn = null;
         this.call = null;
         this.peer.destroy();

@@ -1,0 +1,33 @@
+#grid {
+    display: grid;
+    position: absolute;
+    width: 100%;
+    height: 98%;
+    grid-template-areas: "menu game" "live game" "chat game";
+    grid-template-rows: 30% 40% 30%;
+    grid-template-columns: 40% 60%;
+}
+
+#menu {
+    grid-area: menu;
+    background-color: blue;
+}
+
+#live {
+    grid-area: live;
+    background-color: green;
+}
+
+#chat-area {
+    grid-area: chat;
+    background-color: purple;
+}
+
+#game {
+    grid-area: game;
+    background-color: red;
+}
+
+.block {
+    margin: 3px;
+}

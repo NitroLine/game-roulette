@@ -18,7 +18,6 @@ async function init(){
     });
 
     video.events.on('peerFound', (peerID)=>{
-        document.getElementById('uuid').innerHTML = peerID;
         socket.emit("addToQueue", peerID);
     })
     video.events.on('data', (data) => {
