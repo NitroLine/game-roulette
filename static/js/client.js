@@ -1,6 +1,6 @@
 const socket = io("ws://localhost:3000");
 
-let chessboard = null;
+let chessboard = Chessboard('game', 'start');
 
 socket.on("joinGame", async (peerId) => {
     await video.connect(peerId);

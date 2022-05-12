@@ -10,22 +10,18 @@
 
 #menu {
     grid-area: menu;
-    background-color: blue;
 }
 
 #live {
     grid-area: live;
-    background-color: green;
 }
 
 #chat-area {
     grid-area: chat;
-    background-color: purple;
 }
 
 #game {
     grid-area: game;
-    /*background-color: red;*/
 }
 
 .block {
