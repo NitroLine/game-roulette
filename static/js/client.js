@@ -11,12 +11,13 @@ socket.on("leavePartner", () => {
     console.log("Opponent leave");
 });
 
-socket.on("startGame", (gameOrientation) => {
-    console.log(gameOrientation);
+socket.on("startGame", async (peerId, playerSide) => {
+    await video.connect(peerId);
+    console.log(playerSide);
 
     let config = {
         position: 'start',
-        orientation: gameOrientation
+        orientation: playerSide
     }
     chessboard = Chessboard('game', config);
-})
+});

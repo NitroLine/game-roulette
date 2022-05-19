@@ -1,46 +1,50 @@
-const express = require('express')
-const path = require('path');
-const http = require('http');
-const socketIO = require('socket.io');
+import express from 'express';
+import path from 'path';
+import http from 'http';
+import {Server} from 'socket.io';
+import {fileURLToPath} from 'url';
+
+import {getRandomInt} from './utils.js';
+import {Room} from './room.js';
+import {PlayerSide} from './enums.js';
+
 const app = express();
 const port = 3000;
-
 const server = http.Server(app).listen(port);
-const io = socketIO(server);
+const io = new Server(server);
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
-}
 
+const playerSides = [PlayerSide.FIRST, PlayerSide.SECOND];
 let queue = [];
 
 io.on("connection", (socket) => {
-    let roomId = null;
-    socket.on("addToQueue", (peerId) => {
-        console.log(queue.length);
-        if (queue.length >= 1) {
-            let opponentSocket = queue.pop();
-            roomId = opponentSocket.peerId;
-            socket.join(opponentSocket.peerId);
-            socket.emit("joinGame", opponentSocket.peerId);
+    socket.on("addToQueue", (peerId, gameType) => {
+        socket.peerId = peerId;
+        if (queue.some(r => r.gameType === gameType)) {
+            let room = queue.find(r => r.gameType === gameType);
+            queue = queue.filter(r => r !== room);
 
-            let chessOrientation = ["white", "black"];
-            let randIndex = getRandomInt(0, 2);
-            socket.emit("startGame", chessOrientation[randIndex]);
-            opponentSocket.emit("startGame", chessOrientation[1 - randIndex]);
+            room.setPlayer2(socket);
+
+            let index = getRandomInt(0, 2);
+            room.player1.emit("startGame", room.player2.peerId, playerSides[index]);
+            room.player2.emit("startGame", room.player1.peerId, playerSides[1 - index]);
+
+            console.log("startGame"); //LOG
         } else {
-            roomId = peerId;
-            socket.join(peerId);
-            socket.peerId = peerId;
-            queue.push(socket);
+            let room = new Room(socket, gameType);
+            queue.push(room);
+
+            console.log("createRoom"); //LOG
         }
     });
+
     socket.on("disconnect", () => {
-        queue = queue.filter(s => s.peerId !== roomId);
-        socket.to(roomId).emit("leavePartner");
+        // queue = queue.filter(s => s.peerId !== roomId);
+        // socket.to(roomId).emit("leavePartner");
         console.log("disconnect");
     });
 });
 
 
-app.use('/', express.static(path.join(__dirname, 'static')))
+app.use('/', express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'static')))
