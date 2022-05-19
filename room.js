@@ -1,4 +1,4 @@
-import {GameType} from './enums.js';
+import {GameType} from './static/js/enums.js';
 import {ChessGame} from './chess-game.js';
 
 class Room {
@@ -14,6 +14,7 @@ class Room {
                 break;
             case GameType.TTT:
                 this.game = TTTGame();
+                break;
         }
     }
 

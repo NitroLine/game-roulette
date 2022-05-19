@@ -6,7 +6,7 @@ import {fileURLToPath} from 'url';
 
 import {getRandomInt} from './utils.js';
 import {Room} from './room.js';
-import {PlayerSide} from './enums.js';
+import {PlayerSide} from './static/js/enums.js';
 
 const app = express();
 const port = 3000;
@@ -40,8 +40,9 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        // queue = queue.filter(s => s.peerId !== roomId);
-        // socket.to(roomId).emit("leavePartner");
+        if (queue.some(r => r.player1 === socket))
+            queue = queue.filter(r => r.player1 === socket);
+        // TODO: техническое поражение
         console.log("disconnect");
     });
 });

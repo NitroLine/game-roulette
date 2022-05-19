@@ -1,5 +1,5 @@
 class BaseGame {
-    start(player1, player2) {
+    start() {
     }
 
     move(player, step) {
