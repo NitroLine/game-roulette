@@ -47,7 +47,7 @@ class VideoClient {
 
     }
 
-    startLocalStream(constraints = {video: true, audio: true}) {
+    startLocalStream(constraints = {video: false, audio: true}) {
         return new Promise((resolve, reject) => {
             getUserMedia(constraints, (stream) => {
                 this.localStream = stream;

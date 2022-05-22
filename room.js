@@ -10,10 +10,10 @@ class Room {
 
         switch (gameType) {
             case GameType.CHESS:
-                this.game = ChessGame();
+                this.game = new ChessGame();
                 break;
             case GameType.TTT:
-                this.game = TTTGame();
+                this.game = new TTTGame();
                 break;
         }
     }

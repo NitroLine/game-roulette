@@ -1,8 +1,8 @@
 import {Chess} from 'chess.js';
-import {GameStatus, MoveStatus} from './enums.js';
+import {GameStatus, MoveStatus, PlayerSide} from './enums.js';
 import {BaseGame} from './base-game.js';
 
-const playerColor = {w: "First", b: "Second"};
+const playerColor = {w: PlayerSide.FIRST, b: PlayerSide.SECOND};
 
 class ChessGame extends BaseGame {
 
@@ -16,6 +16,7 @@ class ChessGame extends BaseGame {
     }
 
     move(player, step) {
+        if (this.chessGame.turn() === player[0]) return MoveStatus.BAD_MOVE;
         let moveStatus = this.chessGame.move(step);
         if (moveStatus === null) return MoveStatus.BAD_MOVE;
         return MoveStatus.OK;

@@ -1,27 +1,29 @@
 const socket = io("ws://localhost:3000");
 
 const GameStatus = {WIN: "win", DRAW: "draw"};
-let chessboard = Chessboard('game', 'start');
+const MoveStatus = {OK: "ok", BAD_MOVE: "bad move"};
+const GameType = {CHESS: "chess", TTT: "tic tac toe"};
+let gameType = GameType.CHESS; //TODO: доставать из урла
 
-let side = null;
+let playerNumber = null;
+
+socket.request = function (event, arg) {
+    return new Promise(resolve => {
+        socket.emit(event, arg, (answer) => {
+            resolve(answer);
+        });
+    });
+}
 
 socket.on("startGame", async (peerId, playerSide) => {
     await video.connect(peerId);
-
-    side = playerSide;
-    console.log(playerSide); //LOG
-
-    let config = {
-        position: 'start',
-        orientation: playerSide
-    }
-    chessboard = Chessboard('game', config);
+    playerNumber = playerSide;
 });
 
 socket.on("gameOver", (status, playerSide) => {
     switch (status) {
         case GameStatus.WIN:
-            if (side === playerSide) {
+            if (playerNumber === playerSide) {
                 console.log("You Win"); //LOG
             } else {
                 console.log("You lose"); //LOG

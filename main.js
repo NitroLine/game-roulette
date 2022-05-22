@@ -4,9 +4,9 @@ import http from 'http';
 import {Server} from 'socket.io';
 import {fileURLToPath} from 'url';
 
-import {getRandomInt} from './utils.js';
+import {getOpponentSide, getRandomInt} from './utils.js';
 import {Room} from './room.js';
-import {PlayerSide, GameStatus} from './enums.js';
+import {GameStatus, PlayerSide} from './enums.js';
 
 const app = express();
 const port = 3000;
@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
             room.player1.emit("startGame", room.player2.peerId, room.player1.side);
             room.player2.emit("startGame", room.player1.peerId, room.player2.side);
 
+            room.game.start();
             console.log("startGame"); //LOG
         } else {
             room = new Room(socket, gameType);
@@ -45,13 +46,31 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
-        if (queue.some(r => r.player1 === socket))
-            queue = queue.filter(r => r.player1 === socket);
+        if (queue.some(r => r.player1 === socket)) {
+            queue = queue.filter(r => r.player1 !== socket);
+            return;
+        }
+        if (room === null) return;
 
-        room.player1.emit("gameOver", GameStatus.WIN, socket.side);
-        room.player2.emit("gameOver", GameStatus.WIN, socket.side);
-        
+        room.player1.emit("gameOver", GameStatus.WIN, getOpponentSide(socket.side));
+        room.player2.emit("gameOver", GameStatus.WIN, getOpponentSide(socket.side));
+
         console.log("disconnect"); //LOG
+    });
+
+    socket.on("move", (move, callback) => {
+        console.log("move", move);
+        let status = room.game.move(socket.side, move);
+        if (room.player1.side === socket.side)
+            room.player2.emit("move", move);
+        else room.player1.emit("move", move);
+        callback(status);
+
+        let gameStatus = room.game.getStatus();
+        if (gameStatus.status !== GameStatus.NOTHING) {
+            room.player1.emit("gameOver", gameStatus.status, gameStatus.side);
+            room.player2.emit("gameOver", gameStatus.status, gameStatus.side);
+        }
     });
 });
 
