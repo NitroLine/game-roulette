@@ -1,4 +1,4 @@
-import {GameType} from './static/js/enums.js';
+import {GameType} from './enums.js';
 import {ChessGame} from './chess-game.js';
 
 class Room {

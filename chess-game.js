@@ -1,5 +1,5 @@
 import {Chess} from 'chess.js';
-import {GameStatus, MoveStatus} from './static/js/enums.js';
+import {GameStatus, MoveStatus} from './enums.js';
 import {BaseGame} from './base-game.js';
 
 const playerColor = {w: "First", b: "Second"};

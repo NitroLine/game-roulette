@@ -1,7 +1,6 @@
-import {GameStatus} from "./enums";
-
 const socket = io("ws://localhost:3000");
 
+const GameStatus = {WIN: "win", DRAW: "draw"};
 let chessboard = Chessboard('game', 'start');
 
 let side = null;
@@ -21,12 +20,13 @@ socket.on("startGame", async (peerId, playerSide) => {
 
 socket.on("gameOver", (status, playerSide) => {
     switch (status) {
-        case GameStatus.WIN && side === playerSide:
-            console.log("You Won!"); //LOG
+        case GameStatus.WIN:
+            if (side === playerSide) {
+                console.log("You Win"); //LOG
+            } else {
+                console.log("You lose"); //LOG
+            }
             break;
-        case GameStatus.WIN && side !== playerSide:
-            console.log("You lose"); //LOG
-            break
         case GameStatus.DRAW:
             console.log("Draw"); //LOG
             break;
@@ -34,4 +34,4 @@ socket.on("gameOver", (status, playerSide) => {
             console.log("Nothing happened"); //LOG
             break;
     }
-})
+});
