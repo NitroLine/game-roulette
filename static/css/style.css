@@ -3,9 +3,9 @@
     position: absolute;
     width: 100%;
     height: 80%;
-    grid-template-areas: "menu game" "live game" "chat game";
-    grid-template-rows: 30% 40% 30%;
-    grid-template-columns: 30% 30%;
+    grid-template-areas: "menu game chat" "live game chat" "live game chat";
+    grid-template-rows: 20% 60% 30%;
+    grid-template-columns: 30% 40% 30%;
 }
 
 #menu {
@@ -18,6 +18,7 @@
 
 #chat-area {
     grid-area: chat;
+    padding: 5px;
 }
 
 #game {
@@ -26,4 +27,8 @@
 
 .block {
     margin: 3px;
+}
+
+video{
+    width: 300px;
 }
