@@ -2,8 +2,12 @@ const socket = io("ws://localhost:3000");
 
 const GameStatus = {WIN: "win", DRAW: "draw"};
 const MoveStatus = {OK: "ok", BAD_MOVE: "bad move"};
-const GameType = {CHESS: "chess", TTT: "tic tac toe"};
-let gameType = GameType.CHESS; //TODO: доставать из урла
+const GameScript = {chess: "../js/chess.js", ttt: "../js/ttt.js"}
+
+let gameType = new URLSearchParams(window.location.search).get("type");
+let script = document.createElement("script");
+script.src = GameScript[gameType];
+document.getElementById("scripts").appendChild(script);
 
 let playerNumber = null;
 

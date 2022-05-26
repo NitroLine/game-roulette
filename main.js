@@ -46,6 +46,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("disconnect", () => {
+        console.log("disconnect"); //LOG
         if (queue.some(r => r.player1 === socket)) {
             queue = queue.filter(r => r.player1 !== socket);
             return;
@@ -54,8 +55,6 @@ io.on("connection", (socket) => {
 
         room.player1.emit("gameOver", GameStatus.WIN, getOpponentSide(socket.side));
         room.player2.emit("gameOver", GameStatus.WIN, getOpponentSide(socket.side));
-
-        console.log("disconnect"); //LOG
     });
 
     socket.on("move", (move, callback) => {

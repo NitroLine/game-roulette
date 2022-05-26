@@ -5,37 +5,37 @@
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet"
+    <link href="../css/style.css" rel="stylesheet">
+    <link crossorigin="anonymous"
           href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
           integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
-          crossorigin="anonymous">
+          rel="stylesheet">
     <title>Document</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    <script crossorigin="anonymous"
             integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
-            crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
+    <script crossorigin="anonymous"
             integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.js"
+            src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <script crossorigin="anonymous"
             integrity="sha512-LVaWbRl5YcZ2sKeoSDohbL3rSxsDK8y+O0IqLBnrd+z1U4zFwNg++cWfkLsOljysASsAuWMpY/ar0mWTIZ0nsw=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.js"></script>
 </head>
 <body>
 
-<div id="grid" class="container">
-    <div id="menu" class="block">
+<div class="container" id="grid">
+    <div class="block" id="menu">
         <div id="status">Hello</div>
     </div>
 
-    <div id="live" class="block">
+    <div class="block" id="live">
         <video autoplay id="remote-video"></video>
-        <video autoplay muted id="local-video"></video>
+        <video autoplay id="local-video" muted></video>
     </div>
-    <div id="chat-area" class="block">
+    <div class="block" id="chat-area">
         <div class="chat" id="messages">
             <div class="right">My</div>
             <div class="left">partner</div>
@@ -44,12 +44,13 @@
         <textarea class="messbox" id="inputmess" rows="4"></textarea><br>
         <button class="btn" onclick="sendMessage()">Send</button>
     </div>
-    <div id="game" class="block"></div>
+    <div class="block" id="game"></div>
 </div>
-<script src="../js/VideoClient.js"></script>
-<script src="../js/client.js"></script>
-<script src="../js/video_chat.js"></script>
-<script src="../js/chess.js"></script>
+<div id="scripts">
+    <script src="../js/VideoClient.js"></script>
+    <script src="../js/client.js"></script>
+    <script src="../js/video_chat.js"></script>
+    <!--    <script id="gameScript" src="../js/chess.js"></script>-->
+</div>
 </body>
-
 </html>
