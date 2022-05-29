@@ -1,5 +1,5 @@
 const video = new VideoClient(true);
-
+let micOn = true;
 async function init() {
     video.events.on('localstreamupdate', (stream) => {
         document.getElementById("local-video").srcObject = stream;
@@ -30,7 +30,12 @@ async function init() {
     try {
         await video.startLocalStream({video: true, audio: true});
     } catch (e) {
-        await video.startLocalStream({video: false, audio: true});
+        try{
+            await video.startLocalStream({video: false, audio: true});
+        }
+        catch (e) {
+            document.getElementById('status').innerHTML = "Error while starting stream " + String(e);
+        }
     }
     video.init();
 }
@@ -65,5 +70,20 @@ function sendMessage(event) {
     messages.scrollTop = messages.scrollHeight;
     chatList.push(chatElement);
 }
+
+function toggleMic(){
+    let icon =document.getElementById('mic_icon');
+    if (micOn) {
+        icon.classList.remove('fa-microphone');
+        icon.classList.add('fa-microphone-slash');
+    }
+    else{
+        icon.classList.remove('fa-microphone-slash');
+        icon.classList.add('fa-microphone');
+    }
+    micOn = !micOn;
+    video.toggleAudio(micOn)
+}
+
 
 init();

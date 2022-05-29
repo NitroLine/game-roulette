@@ -29,12 +29,15 @@ socket.on("gameOver", (status, playerSide) => {
         case GameStatus.WIN:
             if (playerNumber === playerSide) {
                 console.log("You Win"); //LOG
+                document.getElementById('status').innerHTML = "You win";
             } else {
                 console.log("You lose"); //LOG
+                document.getElementById('status').innerHTML = "You loose";
             }
             break;
         case GameStatus.DRAW:
             console.log("Draw"); //LOG
+            document.getElementById('status').innerHTML = "Draw";
             break;
         default:
             console.log("Nothing happened"); //LOG

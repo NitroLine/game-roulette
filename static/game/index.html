@@ -7,6 +7,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/chat.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/d1722654fc.js" crossorigin="anonymous"></script>
     <link crossorigin="anonymous"
           href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
           integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
@@ -24,17 +26,19 @@
     <script crossorigin="anonymous"
             integrity="sha512-LVaWbRl5YcZ2sKeoSDohbL3rSxsDK8y+O0IqLBnrd+z1U4zFwNg++cWfkLsOljysASsAuWMpY/ar0mWTIZ0nsw=="
             referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.js"></script>
+
 </head>
 <body>
 
-<div class="container" id="grid">
+<div id="grid">
     <div class="block" id="menu">
-        <div id="status">Hello</div>
+        <div id="status">Searching opponent...</div>
     </div>
 
     <div class="block" id="live">
         <video autoplay id="remote-video"></video>
         <video autoplay id="local-video" muted></video>
+        <div class="voice-control" onclick="toggleMic()" ><i id="mic_icon" class="fas fa-microphone"></i></div>
     </div>
     <div class="block" id="chat-area">
         <div class="chat-inside" id="messages">
