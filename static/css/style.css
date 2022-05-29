@@ -4,16 +4,25 @@
     width: 100%;
     height: 80%;
     grid-template-areas: "menu game chat" "live game chat" "live game chat";
-    grid-template-rows: 10% 60% 30%;
+    grid-template-rows: 5% 95% 0;
     grid-template-columns: 25% 45% 30%;
+
 }
 
 #menu {
     grid-area: menu;
 }
 
+#controls {
+    grid-area: controls;
+}
+
 #live {
     grid-area: live;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #chat-area {
@@ -29,7 +38,24 @@
 }
 
 
-video {
+#status{
+    padding: 5px;
+    text-decoration: #c39cd7 underline;
+    font-weight: 1200;
+    font-size: large;
+}
+.videos-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.controls{
+    margin-top: 5px;
+    height: 9%;
+    display: flex;
+}
+.video-el {
+    max-height: 45%;
     width: 100%;
 }
 .voice-control{

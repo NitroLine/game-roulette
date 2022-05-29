@@ -36,9 +36,13 @@
     </div>
 
     <div class="block" id="live">
-        <video autoplay id="remote-video"></video>
-        <video autoplay id="local-video" muted></video>
-        <div class="voice-control" onclick="toggleMic()" ><i id="mic_icon" class="fas fa-microphone"></i></div>
+
+            <video class="video-el" autoplay id="remote-video"></video>
+            <video class="video-el" autoplay id="local-video" muted></video>
+            <div class="controls">
+                <div class="voice-control" onclick="toggleMic()" ><i id="mic_icon" class="fas fa-microphone"></i></div>
+
+            </div>
     </div>
     <div class="block" id="chat-area">
         <div class="chat-inside" id="messages">
@@ -50,7 +54,9 @@
             </div>
         </div>
     </div>
-    <div class="block" id="game"></div>
+    <div class="block" id="game">
+
+    </div>
 </div>
 <div id="scripts">
     <script src="../js/VideoClient.js"></script>

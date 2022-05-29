@@ -10,11 +10,11 @@ async function init() {
     });
 
     video.events.on('connected', () => {
-        document.getElementById('status').innerHTML = "connected";
+        document.getElementById('status').innerHTML = "Connected";
     });
 
     video.events.on('closed', () => {
-        document.getElementById('status').innerHTML = "closed";
+        document.getElementById('status').innerHTML = "Closed";
     });
 
     video.events.on('peerFound', (peerID) => {
