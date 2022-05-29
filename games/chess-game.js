@@ -1,5 +1,5 @@
 import {Chess} from 'chess.js';
-import {GameStatus, MoveStatus, PlayerSide} from './enums.js';
+import {GameStatus, MoveStatus, PlayerSide} from '../server/enums.js';
 import {BaseGame} from './base-game.js';
 
 const playerColor = {w: PlayerSide.FIRST, b: PlayerSide.SECOND};

@@ -1,4 +1,4 @@
-textarea{
+textarea {
     border: 0;
     width: 100%;
     box-sizing: border-box;
@@ -13,7 +13,7 @@ textarea{
     resize: none;
 }
 
-.chat-fill{
+.chat-fill {
     position: absolute;
     bottom: 0;
     left: 1px;
@@ -32,7 +32,7 @@ textarea{
     width: 100%;
 }
 
-.chat-inside{
+.chat-inside {
     height: calc(100% - 70px);
     padding: 0 0 0 10px;
     background-size: cover;
@@ -41,7 +41,7 @@ textarea{
     overscroll-behavior: contain;
 }
 
-.chat-message{
+.chat-message {
     position: relative;
     padding: 10px 0 0 10px;
     max-width: 75%;
@@ -56,12 +56,12 @@ textarea{
     height: 30px;
 }
 
-.chat-message-text p{
+.chat-message-text p {
     font-size: 16px;
     word-wrap: break-word;
 }
 
-.chat-message-text{
+.chat-message-text {
     position: relative;
     padding: 12px 10px 8px;
     border-radius: 6px;
@@ -70,13 +70,13 @@ textarea{
     margin-left: 5px;
 }
 
-.chat-answer{
+.chat-answer {
     float: right;
     padding: 10px 0 0;
     margin-right: 30px;
 }
 
-.chat-answer .chat-message-text p{
+.chat-answer .chat-message-text p {
     float: right;
     margin-right: 5px;
 }

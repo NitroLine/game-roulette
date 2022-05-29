@@ -106,7 +106,6 @@ class VideoClient {
                 this.status = 'connected';
                 this.events.emit('connected');
                 this.conn.on('data', (data) => {
-                    console.log(data);
                     this.events.emit('data', data);
                 })
             });
@@ -118,10 +117,6 @@ class VideoClient {
                 this.close();
             });
         });
-    }
-
-    sendMessage(message) {
-
     }
 
     init() {

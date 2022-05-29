@@ -7,8 +7,8 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/chat.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <script src="https://kit.fontawesome.com/d1722654fc.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" rel="stylesheet">
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/d1722654fc.js"></script>
     <link crossorigin="anonymous"
           href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
           integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
@@ -36,13 +36,12 @@
     </div>
 
     <div class="block" id="live">
+        <video autoplay class="video-el" id="remote-video"></video>
+        <video autoplay class="video-el" id="local-video" muted></video>
+        <div class="controls">
+            <div class="voice-control" onclick="toggleMic()"><i class="fas fa-microphone" id="mic_icon"></i></div>
 
-            <video class="video-el" autoplay id="remote-video"></video>
-            <video class="video-el" autoplay id="local-video" muted></video>
-            <div class="controls">
-                <div class="voice-control" onclick="toggleMic()" ><i id="mic_icon" class="fas fa-microphone"></i></div>
-
-            </div>
+        </div>
     </div>
     <div class="block" id="chat-area">
         <div class="chat-inside" id="messages">
@@ -50,7 +49,8 @@
         </div>
         <div class="chat-fill">
             <div class="chat-write">
-                <textarea id="inputmess" placeholder="Отправить сообщение ..." class="emoji-face" maxlength="2500"></textarea>
+                <textarea class="emoji-face" id="inputmess" maxlength="2500"
+                          placeholder="Отправить сообщение ..."></textarea>
             </div>
         </div>
     </div>

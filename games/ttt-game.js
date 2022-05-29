@@ -1,10 +1,10 @@
 import {BaseGame} from "./base-game.js";
-import {MoveStatus, PlayerSide} from "./enums.js";
+import {MoveStatus, PlayerSide} from "../server/enums.js";
 
 const Field = {CROSS: 'X', ZERO: 'O', EMPTY: ' '};
 const playerSymbol = {X: PlayerSide.FIRST, O: PlayerSide.SECOND};
 
-class TTTGame extends BaseGame {
+export class TTTGame extends BaseGame {
     constructor() {
         super();
 
@@ -90,5 +90,4 @@ class TTTGame extends BaseGame {
     _getPlayerSide(side) {
         return playerSymbol[side];
     }
-
 }

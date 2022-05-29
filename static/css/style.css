@@ -38,27 +38,31 @@
 }
 
 
-#status{
+#status {
     padding: 5px;
     text-decoration: #c39cd7 underline;
     font-weight: 1200;
     font-size: large;
 }
-.videos-container{
+
+.videos-container {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.controls{
+
+.controls {
     margin-top: 5px;
     height: 9%;
     display: flex;
 }
+
 .video-el {
     max-height: 45%;
     width: 100%;
 }
-.voice-control{
+
+.voice-control {
     width: 45px;
     height: 45px;
     background: #4c4c4cb0;
@@ -69,8 +73,12 @@
     padding-top: 3px;
 }
 
-#mic_icon{
+#mic_icon {
     font-size: 22px;
     speak: none;
     line-height: 1.7em;
+}
+
+.border {
+    border: purple 2px solid;
 }

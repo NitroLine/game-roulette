@@ -3,6 +3,7 @@ const socket = io("ws://localhost:3000");
 const GameStatus = {WIN: "win", DRAW: "draw"};
 const MoveStatus = {OK: "ok", BAD_MOVE: "bad move"};
 const GameScript = {chess: "../js/chess.js", ttt: "../js/ttt.js"}
+const PlayerSide = {FIRST: "first", SECOND: "second"};
 
 let gameType = new URLSearchParams(window.location.search).get("type");
 let script = document.createElement("script");
@@ -10,11 +11,17 @@ script.src = GameScript[gameType];
 document.getElementById("scripts").appendChild(script);
 
 let playerNumber = null;
+let currentMove = PlayerSide.FIRST;
 
-socket.request = function (event, arg) {
-    return new Promise(resolve => {
-        socket.emit(event, arg, (answer) => {
-            resolve(answer);
+socket.request = function (arg) {
+    return new Promise((resolve, reject) => {
+        socket.emit("move", arg, (status) => {
+            if (status === MoveStatus.BAD_MOVE) {
+                resolve(status);
+                return;
+            }
+            changeWhoMoveView(getOpponentSide(playerNumber), playerNumber);
+            resolve(status);
         });
     });
 }
@@ -22,6 +29,8 @@ socket.request = function (event, arg) {
 socket.on("startGame", async (peerId, playerSide) => {
     await video.connect(peerId);
     playerNumber = playerSide;
+
+    changeWhoMoveView(PlayerSide.FIRST, PlayerSide.SECOND);
 });
 
 socket.on("gameOver", (status, playerSide) => {
@@ -44,3 +53,23 @@ socket.on("gameOver", (status, playerSide) => {
             break;
     }
 });
+
+socket.on("invalidGame", (invalidGame) => {
+    document.getElementById("status").innerText = `game ${invalidGame} does not exist`;
+});
+
+socket.on("move", () => {
+    changeWhoMoveView(playerNumber, getOpponentSide(playerNumber));
+});
+
+function changeWhoMoveView(prevPlayer, nextPlayer) {
+    let prevVideo = (prevPlayer === playerNumber) ? 'remote-video' : 'local-video';
+    let nextVideo = (nextPlayer === playerNumber) ? 'remote-video' : 'local-video';
+    console.log(prevVideo, nextVideo, prevPlayer, nextPlayer);
+    document.getElementById(prevVideo).classList.remove('border');
+    document.getElementById(nextVideo).classList.add('border');
+}
+
+function getOpponentSide(playerSide) {
+    return (playerSide === PlayerSide.FIRST) ? PlayerSide.SECOND : PlayerSide.FIRST;
+}

@@ -5,28 +5,32 @@ import https from 'https';
 import {Server} from 'socket.io';
 import {fileURLToPath} from 'url';
 
-import {getOpponentSide, getRandomInt} from './utils.js';
-import {Room} from './room.js';
-import {GameStatus, PlayerSide} from './enums.js';
-import config from './config.js'
+import {games} from "./games/games.js";
+import {getOpponentSide, getRandomInt} from './server/utils.js';
+import {Room} from './server/room.js';
+import {GameStatus, PlayerSide} from './server/enums.js';
+import config from './server/config.js';
 import fs from "fs";
 
 const app = express();
 const port = config.listenPort;
-const { isTls, sslKey, sslCrt } = config;
+const {isTls, sslKey, sslCrt} = config;
 if (isTls && (!fs.existsSync(sslKey) || !fs.existsSync(sslCrt))) {
     console.error('SSL files are not found. check your config.js file');
     process.exit(0);
 }
 
-const webServer = isTls ? https.createServer({cert: fs.readFileSync(sslCrt), key: fs.readFileSync(sslKey)}, expressApp) : http.Server(app);
+const webServer = isTls ? https.createServer({
+    cert: fs.readFileSync(sslCrt),
+    key: fs.readFileSync(sslKey)
+}, expressApp) : http.Server(app);
 webServer.on('error', (err) => {
     console.error('starting web server failed:', err.message);
 });
 
 const server = webServer.listen(port, () => {
     console.info('server is running');
-    console.info(`open http${isTls ? 's': ''}://${config.listenIp}:${port} in your web browser`);
+    console.info(`open http${isTls ? 's' : ''}://${config.listenIp}:${port} in your web browser`);
 });
 
 
@@ -40,6 +44,11 @@ io.on("connection", (socket) => {
 
     socket.on("addToQueue", (peerId, gameType) => {
         socket.peerId = peerId;
+        if (!(gameType in games)) {
+            socket.emit("invalidGame", gameType);
+            socket.disconnect();
+            return;
+        }
         if (queue.some(r => r.gameType === gameType)) {
             room = queue.find(r => r.gameType === gameType);
             queue = queue.filter(r => r !== room);

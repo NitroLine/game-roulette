@@ -19,12 +19,12 @@ socket.on("startGame", async (peerId, playerSide) => {
     }
     side = playerSides[playerSide][0];
     opponentSide = side === 'w' ? 'b' : 'w';
-
     board = Chessboard('game', config);
 });
 
 socket.on("move", (move) => {
     let moveResult = game.move(move);
+    console.log(move);
     board.position(game.fen());
 });
 
@@ -84,7 +84,6 @@ function removeHighlights(color) {
 function onDragStart(source, piece, position, orientation) {
     // do not pick up pieces if the game is over
     if (game.game_over()) return false
-    // only pick up pieces for White
     if (piece && piece[0] === opponentSide) return false
 }
 
@@ -99,7 +98,7 @@ async function onDrop(source, target) {
     // illegal move
     if (move === null) return 'snapback';
 
-    let status = await socket.request("move", {from: source, to: target, promotion: 'q'});
+    let status = await socket.request({from: source, to: target, promotion: 'q'});
     if (status === MoveStatus.BAD_MOVE) return;
 
     // highlight white's move
