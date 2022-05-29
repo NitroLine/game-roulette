@@ -1,11 +1,11 @@
 #grid {
     display: grid;
     position: absolute;
-    width: 100%;
+    width: 99%;
     height: 80%;
     grid-template-areas: "menu game chat" "live game chat" "live game chat";
-    grid-template-rows: 20% 60% 30%;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-rows: 10% 60% 30%;
+    grid-template-columns: 25% 45% 30%;
 }
 
 #menu {
@@ -18,16 +18,16 @@
 
 #chat-area {
     grid-area: chat;
-    padding: 5px;
+
+    position: relative;
+    width: 100%;
 }
 
 #game {
     grid-area: game;
+    margin: 30px;
 }
 
-.block {
-    margin: 3px;
-}
 
 video {
     width: 300px;

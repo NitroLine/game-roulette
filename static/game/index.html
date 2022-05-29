@@ -6,11 +6,12 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/chat.css" rel="stylesheet">
     <link crossorigin="anonymous"
           href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
           integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
           rel="stylesheet">
-    <title>Document</title>
+    <title>Game</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
     <script crossorigin="anonymous"
@@ -36,13 +37,14 @@
         <video autoplay id="local-video" muted></video>
     </div>
     <div class="block" id="chat-area">
-        <div class="chat" id="messages">
-            <div class="right">My</div>
-            <div class="left">partner</div>
-        </div>
+        <div class="chat-inside" id="messages">
 
-        <textarea class="messbox" id="inputmess" rows="4"></textarea><br>
-        <button class="btn" onclick="sendMessage()">Send</button>
+        </div>
+        <div class="chat-fill">
+            <div class="chat-write">
+                <textarea id="inputmess" placeholder="Отправить сообщение ..." class="emoji-face" maxlength="2500"></textarea>
+            </div>
+        </div>
     </div>
     <div class="block" id="game"></div>
 </div>

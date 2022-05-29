@@ -1,18 +1,36 @@
 import express from 'express';
 import path from 'path';
 import http from 'http';
+import https from 'https';
 import {Server} from 'socket.io';
 import {fileURLToPath} from 'url';
 
 import {getOpponentSide, getRandomInt} from './utils.js';
 import {Room} from './room.js';
 import {GameStatus, PlayerSide} from './enums.js';
+import config from './config.js'
+import fs from "fs";
 
 const app = express();
-const port = 3000;
-const server = http.Server(app).listen(port);
-const io = new Server(server);
+const port = config.listenPort;
+const { isTls, sslKey, sslCrt } = config;
+if (isTls && (!fs.existsSync(sslKey) || !fs.existsSync(sslCrt))) {
+    console.error('SSL files are not found. check your config.js file');
+    process.exit(0);
+}
 
+const webServer = isTls ? https.createServer({cert: fs.readFileSync(sslCrt), key: fs.readFileSync(sslKey)}, expressApp) : http.Server(app);
+webServer.on('error', (err) => {
+    console.error('starting web server failed:', err.message);
+});
+
+const server = webServer.listen(port, () => {
+    console.info('server is running');
+    console.info(`open http${isTls ? 's': ''}://${config.listenIp}:${port} in your web browser`);
+});
+
+
+const io = new Server(server);
 
 const playerSides = [PlayerSide.FIRST, PlayerSide.SECOND];
 let queue = [];

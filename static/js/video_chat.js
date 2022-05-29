@@ -21,8 +21,11 @@ async function init() {
         socket.emit("addToQueue", peerID, gameType);
     });
     video.events.on('data', (data) => {
-        chatList.push('2 ' + data);
-        document.getElementById('messages').innerHTML = chatList.join("<br>");
+        let chatElement = createChatElement(data)
+        let messages = document.getElementById('messages');
+        messages.append(chatElement);
+        messages.scrollTop = messages.scrollHeight;
+        chatList.push(chatElement);
     });
     try {
         await video.startLocalStream({video: true, audio: true});
@@ -32,16 +35,35 @@ async function init() {
     video.init();
 }
 
-chatList = [];
+function createChatElement(message, answer=false){
+    let chatElement = document.createElement('div')
+    chatElement.classList.add('chat-message')
+    if (answer)
+        chatElement.classList.add('chat-answer')
+    let chatText = document.createElement('div');
+    chatText.className = 'chat-message-text';
+    let p = document.createElement('p')
+    p.innerText = message;
+    chatText.append(p);
+    chatElement.append(chatText);
+    return chatElement;
+}
 
-function sendMessage() {
-    let newmes = document.getElementById('inputmess').value;
+let chatList = [];
+document.getElementById('inputmess').addEventListener('keyup', sendMessage)
+function sendMessage(event) {
+    if (event.key !== 'Enter')
+        return
+    let newMessage = document.getElementById('inputmess').value;
     document.getElementById('inputmess').value = '';
     if (video.conn && video.conn.open) {
-        video.conn.send(newmes);
+        video.conn.send(newMessage);
     }
-    chatList.push('1 ' + newmes);
-    document.getElementById('messages').innerHTML = chatList.join("<br>");
+    let chatElement = createChatElement(newMessage, true)
+    let messages = document.getElementById('messages');
+    messages.append(chatElement);
+    messages.scrollTop = messages.scrollHeight;
+    chatList.push(chatElement);
 }
 
 init();
