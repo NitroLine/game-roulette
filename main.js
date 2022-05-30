@@ -23,7 +23,7 @@ if (isTls && (!fs.existsSync(sslKey) || !fs.existsSync(sslCrt))) {
 const webServer = isTls ? https.createServer({
     cert: fs.readFileSync(sslCrt),
     key: fs.readFileSync(sslKey)
-}, expressApp) : http.Server(app);
+}, app) : http.Server(app);
 webServer.on('error', (err) => {
     console.error('starting web server failed:', err.message);
 });
