@@ -41,7 +41,7 @@ socket.on("gameOver", (status, playerSide) => {
                 document.getElementById('status').innerHTML = "You win";
             } else {
                 console.log("You lose"); //LOG
-                document.getElementById('status').innerHTML = "You loose";
+                document.getElementById('status').innerHTML = "You lose";
             }
             break;
         case GameStatus.DRAW:

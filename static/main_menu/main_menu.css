@@ -47,7 +47,7 @@ body {
 }
 .image:hover{
     box-sizing: border-box;
-    border: #05E7E7 5px solid;
+    border: #05E7E7 1px solid;
 }
 .image:current{
     box-sizing: border-box;
@@ -55,4 +55,9 @@ body {
 }
 .game{
     display: none;
+}
+
+.game:checked + .image{
+    box-sizing: border-box;
+    border: #05E7E7 5px solid;
 }

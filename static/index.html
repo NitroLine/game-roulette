@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Game roulette</title>
+    <link rel="stylesheet" href="main_menu/main_menu.css">
 </head>
 <body>
-<a href="/v/game?type=chess">Играть в шахматы</a>
-<br>
-<a href="/v/game?type=ttt">Играть в крестики-нолики</a>
+<div class="flex-container">
+    <div class="row">
+        <div class="flex-item">
+            <div class="header"><p>Game roulette</p></div>
+            <form method="GET" action="/v/game">
+                <input class="name" type="text" name="name"><br><br>
+                <label><input class="game" type="radio" name="game" id="id1" value="chess"><img class="image" src="main_menu/chess.png" alt="chess"></label>
+                <label><input class="game" type="radio" name="game" id="id2" value="tic_tac_toe"><img class="image" src="main_menu/tic_tac_toe.png" alt="tic_tac_toe"></label>
+                <label><input class="game" type="radio" name="game" id="id3" value="checkers"><img class="image" src="main_menu/chess2.png" alt="checkers"></label>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
-</html>
