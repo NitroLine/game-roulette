@@ -1,9 +1,5 @@
 
-const socket = io(`${window.location.protocol}//${window.location.host}:${window.location.port}`,{
-    path: '/server',
-    transports: ['websocket'],
-});
-
+const socket = io(`${window.location.protocol}//${window.location.host}`);
 const GameStatus = {WIN: "win", DRAW: "draw"};
 const MoveStatus = {OK: "ok", BAD_MOVE: "bad move"};
 const GameScript = {chess: "../js/chess.js", ttt: "../js/ttt.js"}

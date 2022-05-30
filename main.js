@@ -34,15 +34,7 @@ const server = webServer.listen(port, config.listenIp,() => {
 });
 
 
-const io = new Server(server, {
-    serveClient: false,
-    path: '/server',
-    log: true,
-    cors: {
-        origin: true,
-        methods: ["GET", "POST"],
-    }
-});
+const io = new Server(server);
 
 const playerSides = [PlayerSide.FIRST, PlayerSide.SECOND];
 let queue = [];
@@ -111,5 +103,8 @@ io.on("connection", (socket) => {
 
 app.use('/v/', express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'static')))
 app.use('/', (req,res)=>{
+    if(req.originalUrl !== '/'){
+        res.status(404).send('Sorry, we cannot find that!');
+    }
     res.redirect('/v/')
 })
