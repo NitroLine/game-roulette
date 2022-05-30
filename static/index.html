@@ -12,10 +12,13 @@
             <div class="header"><p>Game roulette</p></div>
             <form method="GET" action="/v/game">
                 <input class="name" type="text" name="name"><br><br>
-                <label><input class="game" type="radio" name="type" id="id1" value="chess"><img class="image" src="main_menu/chess.png" alt="chess"></label>
-                <label><input class="game" type="radio" name="type" id="id2" value="ttt"><img class="image" src="main_menu/tic_tac_toe.png" alt="tic_tac_toe"></label>
-                <label><input class="game" type="radio" name="type" id="id3" value="checkers"><img class="image" src="main_menu/chess2.png" alt="checkers"></label>
+                <label><input required class="game" type="radio" name="type" id="id1" value="chess"><img class="image" src="main_menu/chess.png" alt="chess"></label>
+                <label><input required  disabled class="game" type="radio" name="type" id="id2" value="ttt"><img class="image" src="main_menu/tic_tac_toe.png" alt="tic_tac_toe"></label>
+                <label><input required disabled class="game" type="radio" name="type" id="id3" value="checkers"><img class="image" src="main_menu/chess2.png" alt="checkers"></label>
+                <br><br>
+                <input type="submit" class="btn" value="Play">
             </form>
+
         </div>
     </div>
 </div>

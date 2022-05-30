@@ -53,6 +53,18 @@ body {
     box-sizing: border-box;
     border: #05E7E7 5px solid;
 }
+.btn{
+    padding: 10px 25px 10px 25px;
+    background-color: #c39cd7;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 40px;
+    border-radius: 10px;
+}
+.btn:hover{
+    background-color: #05E7E7;
+}
 .game{
     display: none;
 }
