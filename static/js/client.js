@@ -1,5 +1,8 @@
 
-const socket = io(`ws${window.location.protocol === 'https:' ? 's' : ''}://${window.location.host}:${window.location.port}`);
+const socket = io(`${window.location.protocol}//${window.location.host}:${window.location.port}`,{
+    path: '/server',
+    transports: ['websocket'],
+});
 
 const GameStatus = {WIN: "win", DRAW: "draw"};
 const MoveStatus = {OK: "ok", BAD_MOVE: "bad move"};

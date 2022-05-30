@@ -34,7 +34,15 @@ const server = webServer.listen(port, config.listenIp,() => {
 });
 
 
-const io = new Server(server);
+const io = new Server(server, {
+    serveClient: false,
+    path: '/server',
+    log: true,
+    cors: {
+        origin: true,
+        methods: ["GET", "POST"],
+    }
+});
 
 const playerSides = [PlayerSide.FIRST, PlayerSide.SECOND];
 let queue = [];
@@ -101,4 +109,7 @@ io.on("connection", (socket) => {
 });
 
 
-app.use('/', express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'static')))
+app.use('/v/', express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'static')))
+app.use('/', (req,res)=>{
+    res.redirect('/v/')
+})
