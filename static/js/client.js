@@ -1,4 +1,5 @@
-const socket = io("ws://localhost:3000");
+
+const socket = io(`ws${window.location.protocol === 'https:' ? 's' : ''}://${window.location.host}:${window.location.port}`);
 
 const GameStatus = {WIN: "win", DRAW: "draw"};
 const MoveStatus = {OK: "ok", BAD_MOVE: "bad move"};
