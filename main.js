@@ -28,7 +28,7 @@ webServer.on('error', (err) => {
     console.error('starting web server failed:', err.message);
 });
 
-const server = webServer.listen(port, () => {
+const server = webServer.listen(port, config.listenIp,() => {
     console.info('server is running');
     console.info(`open http${isTls ? 's' : ''}://${config.listenIp}:${port} in your web browser`);
 });
