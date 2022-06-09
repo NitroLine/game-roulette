@@ -28,7 +28,7 @@ webServer.on('error', (err) => {
     console.error('starting web server failed:', err.message);
 });
 
-const server = webServer.listen(port, config.listenIp,() => {
+const server = webServer.listen(port, config.listenIp, () => {
     console.info('server is running');
     console.info(`open http${isTls ? 's' : ''}://${config.listenIp}:${port} in your web browser`);
 });
@@ -42,8 +42,9 @@ let queue = [];
 io.on("connection", (socket) => {
     let room = null;
 
-    socket.on("addToQueue", (peerId, gameType) => {
+    socket.on("addToQueue", (peerId, gameType, username) => {
         socket.peerId = peerId;
+        socket.username = username;
         if (!(gameType in games)) {
             socket.emit("invalidGame", gameType);
             socket.disconnect();
@@ -59,8 +60,8 @@ io.on("connection", (socket) => {
             room.player1.side = playerSides[index];
             room.player2.side = playerSides[1 - index];
 
-            room.player1.emit("startGame", room.player2.peerId, room.player1.side);
-            room.player2.emit("startGame", room.player1.peerId, room.player2.side);
+            room.player1.emit("startGame", room.player2.peerId, room.player1.side, room.player2.username);
+            room.player2.emit("startGame", room.player1.peerId, room.player2.side, room.player1.username);
 
             room.game.start();
             console.log("startGame"); //LOG
@@ -102,8 +103,8 @@ io.on("connection", (socket) => {
 
 
 app.use('/v/', express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'static')))
-app.use('/', (req,res)=>{
-    if(req.originalUrl !== '/'){
+app.use('/', (req, res) => {
+    if (req.originalUrl !== '/') {
         res.status(404).send('Sorry, we cannot find that!');
     }
     res.redirect('/v/')

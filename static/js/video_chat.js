@@ -19,7 +19,7 @@ async function init() {
     });
 
     video.events.on('peerFound', (peerID) => {
-        socket.emit("addToQueue", peerID, gameType);
+        socket.emit("addToQueue", peerID, gameType, username);
     });
     video.events.on('data', (data) => {
         let chatElement = createChatElement(data)

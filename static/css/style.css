@@ -32,11 +32,10 @@
     width: 100%;
 }
 
-#game {
+#game-block {
     grid-area: game;
     margin: 30px;
 }
-
 
 #status {
     padding: 5px;

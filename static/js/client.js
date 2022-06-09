@@ -1,4 +1,3 @@
-
 const socket = io(`${window.location.protocol}//${window.location.host}`);
 const GameStatus = {WIN: "win", DRAW: "draw"};
 const MoveStatus = {OK: "ok", BAD_MOVE: "bad move"};
@@ -6,6 +5,10 @@ const GameScript = {chess: "../js/chess.js", ttt: "../js/ttt.js"}
 const PlayerSide = {FIRST: "first", SECOND: "second"};
 
 let gameType = new URLSearchParams(window.location.search).get("type");
+let username = new URLSearchParams(window.location.search).get("name");
+viewPlayerUsernames(username);
+let enemyUsername = null;
+
 let script = document.createElement("script");
 script.src = GameScript[gameType];
 document.getElementById("scripts").appendChild(script);
@@ -20,16 +23,19 @@ socket.request = function (arg) {
                 resolve(status);
                 return;
             }
+            viewPlayerUsernames(username, enemyUsername);
             changeWhoMoveView(getOpponentSide(playerNumber), playerNumber);
             resolve(status);
         });
     });
 }
 
-socket.on("startGame", async (peerId, playerSide) => {
+socket.on("startGame", async (peerId, playerSide, opponentUsername) => {
     await video.connect(peerId);
     playerNumber = playerSide;
+    enemyUsername = opponentUsername
 
+    viewPlayerUsernames(username, enemyUsername);
     changeWhoMoveView(PlayerSide.FIRST, PlayerSide.SECOND);
 });
 
@@ -72,4 +78,9 @@ function changeWhoMoveView(prevPlayer, nextPlayer) {
 
 function getOpponentSide(playerSide) {
     return (playerSide === PlayerSide.FIRST) ? PlayerSide.SECOND : PlayerSide.FIRST;
+}
+
+function viewPlayerUsernames(currName, enemyName = "...") {
+    document.getElementById("player-name").innerText = currName;
+    document.getElementById("enemy-name").innerText = enemyName;
 }

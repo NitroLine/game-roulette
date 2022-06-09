@@ -2,13 +2,16 @@
     font-family: 'ABeeZee';
     src: url(ABeeZee-Italic.ttf);
 }
+
 html, body {
     height: 100%;
     background-color: #161B22;
 }
+
 body {
     margin: 0;
 }
+
 .flex-container {
     height: 100%;
     padding: 0;
@@ -17,10 +20,12 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .row {
     width: auto;
 }
-.flex-item{
+
+.flex-item {
     font-family: 'ABeeZee', fantasy;
     padding: 5px;
     margin: 30px;
@@ -30,27 +35,31 @@ body {
     font-size: 4em;
     text-align: center;
 }
-.header{
+
+.header {
     text-decoration: underline #05E7E7;
 }
-.name{
+
+.name {
     width: 350px;
     font-family: 'ABeeZee', fantasy;
-    font-size:30px;
+    font-size: 30px;
     height: 45px;
     background: #DADADA;
     border-radius: 15px;
 }
-.image{
+
+.image {
     width: 90px;
     height: 90px;
 }
-.image:hover{
+
+.image:hover {
     box-sizing: border-box;
     border: #05E7E7 1px solid;
 }
 
-.btn{
+.btn {
     padding: 5px 15px 5px 15px;
     background-color: #05E7E7;
     border: none;
@@ -59,14 +68,16 @@ body {
     font-size: 40px;
     border-radius: 15px;
 }
-.btn:hover{
+
+.btn:hover {
     background-color: #03BDBD;
 }
-.game{
+
+.game {
     display: none;
 }
 
-.game:checked + .image{
+.game:checked + .image {
     box-sizing: border-box;
     border: #05E7E7 5px solid;
 }
