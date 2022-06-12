@@ -88,11 +88,16 @@ io.on("connection", (socket) => {
     socket.on("move", (move, callback) => {
         console.log("move", move);
         let status = room.game.move(socket.side, move);
+        if (status === MoveStatus.BAD_MOVE)
+        {
+            callback(status);
+            return;
+        }
         if (room.player1.side === socket.side)
             room.player2.emit("move", move);
         else room.player1.emit("move", move);
-        callback(status);
 
+        callback(status);
         let gameStatus = room.game.getStatus();
         if (gameStatus.status !== GameStatus.NOTHING) {
             room.player1.emit("gameOver", gameStatus.status, gameStatus.side);

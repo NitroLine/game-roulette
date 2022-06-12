@@ -1,6 +1,9 @@
 const video = new VideoClient(true);
 let micOn = true;
-
+let myPeerId = null;
+let statusEl = document.getElementById('status');
+let btn = document.getElementById('start_btn')
+let isFirst = true;
 async function init() {
     video.events.on('localstreamupdate', (stream) => {
         document.getElementById("local-video").srcObject = stream;
@@ -11,15 +14,27 @@ async function init() {
     });
 
     video.events.on('connected', () => {
-        document.getElementById('status').innerHTML = "Connected";
+        statusEl.innerHTML = "Connected";
+        btn.disabled = false;
     });
 
     video.events.on('closed', () => {
-        document.getElementById('status').innerHTML = "Closed";
+        statusEl.innerHTML = "Opponent exit. ";
+        btn.disabled = false;
     });
 
     video.events.on('peerFound', (peerID) => {
-        socket.emit("addToQueue", peerID, gameType, username);
+        myPeerId = peerID;
+        console.log("PEER FOUND")
+        if (isFirst){
+            btn.disabled = false;
+            btn.onclick = start
+            statusEl.innerHTML = "Press ready button"
+            isFirst = false;
+        }
+        else{
+            start()
+        }
     });
     video.events.on('data', (data) => {
         let chatElement = createChatElement(data)
@@ -38,6 +53,22 @@ async function init() {
         }
     }
     video.init();
+}
+
+function start(){
+    console.log("START")
+    socket.emit("addToQueue", myPeerId, gameType, username);
+    statusEl.innerHTML = "Searching opponent...";
+    btn.disabled = true;
+    btn.onclick = nextOpponent
+    btn.innerHTML = "Next"
+    video.active = true;
+}
+
+function nextOpponent(){
+    console.log("NEXT OPPONENT")
+    video.close()
+    btn.disabled = true;
 }
 
 function createChatElement(message, answer = false) {

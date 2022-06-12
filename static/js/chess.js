@@ -6,6 +6,7 @@ let opponentSide = null;
 
 socket.on("startGame", async (peerId, playerSide) => {
     console.log(playerSide); //LOG
+    game = new Chess()
     let config = {
         draggable: true,
         position: 'start',
