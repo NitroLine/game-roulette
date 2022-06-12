@@ -8,10 +8,9 @@ import {fileURLToPath} from 'url';
 import {games} from "./games/games.js";
 import {getOpponentSide, getRandomInt} from './server/utils.js';
 import {Room} from './server/room.js';
-import {GameStatus, PlayerSide} from './server/enums.js';
+import {GameStatus, MoveStatus, PlayerSide} from './server/enums.js';
 import config from './server/config.js';
 import fs from "fs";
-
 const app = express();
 const port = config.listenPort;
 const {isTls, sslKey, sslCrt} = config;
@@ -87,6 +86,8 @@ io.on("connection", (socket) => {
 
     socket.on("move", (move, callback) => {
         console.log("move", move);
+        if (!room || !room.game)
+            return;
         let status = room.game.move(socket.side, move);
         if (status === MoveStatus.BAD_MOVE)
         {

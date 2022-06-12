@@ -1,8 +1,9 @@
 import {BaseGame} from "./base-game.js";
-import {MoveStatus, PlayerSide} from "../server/enums.js";
+import {MoveStatus, PlayerSide, GameStatus} from "../server/enums.js";
 
 const Field = {CROSS: 'X', ZERO: 'O', EMPTY: ' '};
-const playerSymbol = {X: PlayerSide.FIRST, O: PlayerSide.SECOND};
+const symbolPlayer = {X: PlayerSide.FIRST, O: PlayerSide.SECOND};
+// const playerSymbol = {first: Field.CROSS, second: Field.ZERO};
 
 export class TTTGame extends BaseGame {
     constructor() {
@@ -26,7 +27,7 @@ export class TTTGame extends BaseGame {
     move(player, step) {
         let row = step.row;
         let col = step.col;
-        if (this.isEnded || player !== this.currentPlayer || this.field[row][col] !== Field.EMPTY)
+        if (this.isEnded || player !== symbolPlayer[this.currentPlayer] || this.field[row][col] !== Field.EMPTY)
             return MoveStatus.BAD_MOVE;
         this.field[row][col] = this.currentPlayer;
         this.currentPlayer = (this.currentPlayer === Field.CROSS) ? Field.ZERO : Field.CROSS;
@@ -36,7 +37,14 @@ export class TTTGame extends BaseGame {
     getStatus() {
         let winner = this._getWinnerSide();
         if (winner === Field.EMPTY)
-            return {status: this._isAnyMove() ? GameStatus.NOTHING : GameStatus.DRAW};
+        {
+            let anyMove = this._isAnyMove()
+            if (anyMove)
+                return GameStatus.NOTHING
+            this.isEnded = true;
+            return GameStatus.DRAW;
+        }
+        this.isEnded = true;
         return {status: GameStatus.WIN, side: this._getPlayerSide(winner)};
     }
 
@@ -88,6 +96,6 @@ export class TTTGame extends BaseGame {
     }
 
     _getPlayerSide(side) {
-        return playerSymbol[side];
+        return symbolPlayer[side];
     }
 }

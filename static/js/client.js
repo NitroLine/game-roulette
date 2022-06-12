@@ -14,7 +14,6 @@ script.src = GameScript[gameType];
 document.getElementById("scripts").appendChild(script);
 
 let playerNumber = null;
-let currentMove = PlayerSide.FIRST;
 
 socket.request = function (arg) {
     return new Promise((resolve, reject) => {
