@@ -1,9 +1,11 @@
 const video = new VideoClient(true);
 let micOn = true;
 let myPeerId = null;
-let statusEl = document.getElementById('status');
-let btn = document.getElementById('start_btn')
 let isFirst = true;
+
+const statusEl = document.getElementById('status');
+const btn = document.getElementById('start_btn');
+
 async function init() {
     video.events.on('localstreamupdate', (stream) => {
         document.getElementById("local-video").srcObject = stream;
@@ -25,19 +27,18 @@ async function init() {
 
     video.events.on('peerFound', (peerID) => {
         myPeerId = peerID;
-        console.log("PEER FOUND")
-        if (isFirst){
+        console.log("PEER FOUND");
+        if (isFirst) {
             btn.disabled = false;
-            btn.onclick = start
-            statusEl.innerHTML = "Press ready button"
+            btn.onclick = start;
+            statusEl.innerHTML = "Press ready button";
             isFirst = false;
-        }
-        else{
-            start()
+        } else {
+            start();
         }
     });
     video.events.on('data', (data) => {
-        let chatElement = createChatElement(data)
+        let chatElement = createChatElement(data);
         let messages = document.getElementById('messages');
         messages.append(chatElement);
         messages.scrollTop = messages.scrollHeight;
@@ -55,7 +56,7 @@ async function init() {
     video.init();
 }
 
-function start(){
+function start() {
     console.log("START")
     socket.emit("addToQueue", myPeerId, gameType, username);
     statusEl.innerHTML = "Searching opponent...";
@@ -65,7 +66,7 @@ function start(){
     video.active = true;
 }
 
-function nextOpponent(){
+function nextOpponent() {
     console.log("NEXT OPPONENT")
     video.close()
     btn.disabled = true;

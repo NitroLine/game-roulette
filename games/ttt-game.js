@@ -1,9 +1,8 @@
 import {BaseGame} from "./base-game.js";
-import {MoveStatus, PlayerSide, GameStatus} from "../server/enums.js";
+import {GameStatus, MoveStatus, PlayerSide} from "../server/enums.js";
 
 const Field = {CROSS: 'X', ZERO: 'O', EMPTY: ' '};
 const symbolPlayer = {X: PlayerSide.FIRST, O: PlayerSide.SECOND};
-// const playerSymbol = {first: Field.CROSS, second: Field.ZERO};
 
 export class TTTGame extends BaseGame {
     constructor() {
@@ -36,8 +35,7 @@ export class TTTGame extends BaseGame {
 
     getStatus() {
         let winner = this._getWinnerSide();
-        if (winner === Field.EMPTY)
-        {
+        if (winner === Field.EMPTY) {
             let anyMove = this._isAnyMove()
             if (anyMove)
                 return GameStatus.NOTHING

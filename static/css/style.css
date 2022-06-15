@@ -93,11 +93,11 @@ blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html
     padding: 0;
 }
 
-html{
+html {
     overflow-x: hidden;
 }
 
-.btn{
+.btn {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
@@ -123,15 +123,17 @@ html{
     display: -ms-flexbox;
     display: flex;
     border: 0;
-    font-family: 'Geometria',Arial,sans-serif;
+    font-family: 'Geometria', Arial, sans-serif;
     opacity: .9;
     margin-left: 5px;
     margin-right: 5px;
     text-decoration: none;
 }
+
 .btn:hover {
     opacity: 1;
 }
+
 .btn:disabled {
     background: rgb(99, 99, 99);
     opacity: 1;

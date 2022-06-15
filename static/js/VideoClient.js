@@ -37,7 +37,7 @@ class VideoClient {
         this.conn = null;
         this.myPeerId = null;
         this.peer = null;
-        this.status = 'init'
+        this.status = 'init';
         this.localStream = null;
         this._debug = _debug;
         this.remoteStream = null;

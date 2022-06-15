@@ -30,11 +30,12 @@
     border-right-color: transparent;
 }
 
-#game{
+#game {
     display: flex;
     flex-direction: column;
 }
-.container{
+
+.container {
     margin: 40px auto;
     display: inline-block;
     width: auto;

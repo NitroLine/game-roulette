@@ -6,7 +6,7 @@ let opponentSide = null;
 
 socket.on("startGame", async (peerId, playerSide) => {
     console.log(playerSide); //LOG
-    game = new Chess()
+    game = new Chess();
     let config = {
         draggable: true,
         position: 'start',
@@ -17,7 +17,7 @@ socket.on("startGame", async (peerId, playerSide) => {
         onMouseoutSquare: onMouseoutSquare,
         onMouseoverSquare: onMouseoverSquare,
         onSnapEnd: onSnapEnd
-    }
+    };
     side = playerSides[playerSide][0];
     opponentSide = side === 'w' ? 'b' : 'w';
     board = Chessboard('game', config);
@@ -31,25 +31,25 @@ socket.on("move", (move) => {
 
 let board = Chessboard('game', 'start');
 let $board = $('#game');
-let game = new Chess()
+let game = new Chess();
 let squareToHighlight = null;
 let squareClass = 'square-55d63';
-let whiteSquareGrey = '#a9a9a9'
-let blackSquareGrey = '#696969'
+let whiteSquareGrey = '#a9a9a9';
+let blackSquareGrey = '#696969';
 
 function removeGreySquares() {
-    $('#game .square-55d63').css('background', '')
+    $('#game .square-55d63').css('background', '');
 }
 
 function greySquare(square) {
-    let $square = $('#game .square-' + square)
+    let $square = $('#game .square-' + square);
 
-    let background = whiteSquareGrey
+    let background = whiteSquareGrey;
     if ($square.hasClass('black-3c85d')) {
-        background = blackSquareGrey
+        background = blackSquareGrey;
     }
 
-    $square.css('background', background)
+    $square.css('background', background);
 }
 
 function onMouseoverSquare(square, piece) {
@@ -58,17 +58,17 @@ function onMouseoverSquare(square, piece) {
     let moves = game.moves({
         square: square,
         verbose: true
-    })
+    });
 
     // exit if there are no moves available for this square
-    if (moves.length === 0) return
+    if (moves.length === 0) return;
 
     // highlight the square they moused over
-    greySquare(square)
+    greySquare(square);
 
     // highlight the possible squares for this piece
     for (let i = 0; i < moves.length; i++) {
-        greySquare(moves[i].to)
+        greySquare(moves[i].to);
     }
 }
 
@@ -78,14 +78,13 @@ function onMouseoutSquare(square, piece) {
 
 
 function removeHighlights(color) {
-    $board.find('.' + squareClass)
-        .removeClass('highlight-' + color)
+    $board.find('.' + squareClass).removeClass('highlight-' + color);
 }
 
 function onDragStart(source, piece, position, orientation) {
     // do not pick up pieces if the game is over
-    if (game.game_over()) return false
-    if (piece && piece[0] === opponentSide) return false
+    if (game.game_over()) return false;
+    if (piece && piece[0] === opponentSide) return false;
 }
 
 async function onDrop(source, target) {
@@ -109,8 +108,7 @@ async function onDrop(source, target) {
 }
 
 function onMoveEnd() {
-    $board.find('.square-' + squareToHighlight)
-        .addClass('highlight-black');
+    $board.find('.square-' + squareToHighlight).addClass('highlight-black');
 }
 
 // update the board position after the piece snap

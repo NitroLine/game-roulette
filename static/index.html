@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Game roulette</title>
-    <link rel="stylesheet" href="main_menu/main_menu.css">
+    <link href="main_menu/main_menu.css" rel="stylesheet">
 </head>
 <body>
 <div class="flex-container">
     <div class="row">
         <div class="flex-item">
             <div class="header"><p>Game roulette</p></div>
-            <form method="GET" action="/v/game">
-                <input class="name" type="text" name="name" required>
+            <form action="/v/game" method="GET">
+                <input class="name" name="name" required type="text">
                 <br><br>
-                <label><input required class="game" type="radio" name="type" id="id1" value="chess"><img class="image"
-                                                                                                         src="main_menu/chess.png"
-                                                                                                         alt="chess"></label>
-                <label><input required class="game" type="radio" name="type" id="id2" value="ttt"><img
-                        class="image" src="main_menu/tic_tac_toe.png" alt="tic_tac_toe"></label>
-                <label><input required disabled class="game" type="radio" name="type" id="id3" value="checkers"><img
-                        class="image" src="main_menu/chess2.png" alt="checkers"></label>
+                <label><input class="game" id="id1" name="type" required type="radio" value="chess"><img alt="chess"
+                                                                                                         class="image"
+                                                                                                         src="main_menu/chess.png"></label>
+                <label><input class="game" id="id2" name="type" required type="radio" value="ttt"><img
+                        alt="tic_tac_toe" class="image" src="main_menu/tic_tac_toe.png"></label>
+                <label><input class="game" disabled id="id3" name="type" required type="radio" value="checkers"><img
+                        alt="checkers" class="image" src="main_menu/chess2.png"></label>
                 <br><br>
-                <input type="submit" class="btn" value="Start Game">
+                <input class="btn" type="submit" value="Start Game">
             </form>
 
         </div>

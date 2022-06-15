@@ -11,8 +11,9 @@ import {Room} from './server/room.js';
 import {GameStatus, MoveStatus, PlayerSide} from './server/enums.js';
 import config from './server/config.js';
 import fs from "fs";
+
 const app = express();
-const port = config.listenPort;
+const port = config.port;
 const {isTls, sslKey, sslCrt} = config;
 if (isTls && (!fs.existsSync(sslKey) || !fs.existsSync(sslCrt))) {
     console.error('SSL files are not found. check your config.js file');
@@ -27,9 +28,9 @@ webServer.on('error', (err) => {
     console.error('starting web server failed:', err.message);
 });
 
-const server = webServer.listen(port, config.listenIp, () => {
+const server = webServer.listen(port, config.host, () => {
     console.info('server is running');
-    console.info(`open http${isTls ? 's' : ''}://${config.listenIp}:${port} in your web browser`);
+    console.info(`open http${isTls ? 's' : ''}://${config.host}:${port} in your web browser`);
 });
 
 
@@ -89,8 +90,7 @@ io.on("connection", (socket) => {
         if (!room || !room.game)
             return;
         let status = room.game.move(socket.side, move);
-        if (status === MoveStatus.BAD_MOVE)
-        {
+        if (status === MoveStatus.BAD_MOVE) {
             callback(status);
             return;
         }
@@ -111,7 +111,7 @@ io.on("connection", (socket) => {
 app.use('/v/', express.static(path.join(path.dirname(fileURLToPath(import.meta.url)), 'static')))
 app.use('/', (req, res) => {
     if (req.originalUrl !== '/') {
-        res.status(404).send('Sorry, we cannot find that!');
+        return res.status(404).send('Sorry, we cannot find that!');
     }
-    res.redirect('/v/')
+    return res.redirect('/v/');
 })
