@@ -36,12 +36,14 @@
     </div>
 
     <div class="block" id="live">
-        <video autoplay class="video-el" id="remote-video"></video>
-        <video autoplay class="video-el" id="local-video" muted></video>
+        <video autoplay class="video-el" style="display: none" id="remote-video"></video>
+        <img src="../assets/noise_gif.gif" class="video-el" alt="niose"  id="noise_remote">
+        <video autoplay class="video-el" id="local-video" muted  style="display: none"></video>
+        <img src="../assets/noise_gif.gif" class="video-el" alt="niose" id="noise_local">
         <div class="controls">
             <div class="voice-control" onclick="toggleMic()"><i class="fas fa-microphone" id="mic_icon"></i></div>
             <button class="btn" disabled id="start_btn"> Ready</button>
-            <a class="btn" href="/">EXIT</a>
+            <a class="btn" href="/">Exit</a>
         </div>
     </div>
     <div class="block" id="chat-area">
@@ -56,9 +58,9 @@
         </div>
     </div>
     <div claas="block" id="game-block">
-        <div id="enemy-name">EnemyName</div>
+        <div class="players-names" id="enemy-name">EnemyName</div>
         <div id="game"></div>
-        <div id="player-name">PlayerName</div>
+        <div class="players-names"  id="player-name">PlayerName</div>
     </div>
 </div>
 <div id="scripts">

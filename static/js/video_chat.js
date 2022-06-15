@@ -9,10 +9,14 @@ const btn = document.getElementById('start_btn');
 async function init() {
     video.events.on('localstreamupdate', (stream) => {
         document.getElementById("local-video").srcObject = stream;
+        document.getElementById("local-video").style.display = 'block';
+        document.getElementById("noise_local").style.display = 'none';
     });
 
     video.events.on('remotestreamupdate', (stream) => {
+        document.getElementById("remote-video").style.display = 'block';
         document.getElementById("remote-video").srcObject = stream;
+        document.getElementById("noise_remote").style.display = 'none';
     });
 
     video.events.on('connected', () => {
@@ -23,6 +27,8 @@ async function init() {
     video.events.on('closed', () => {
         statusEl.innerHTML = "Opponent exit. ";
         btn.disabled = false;
+        document.getElementById("remote-video").style.display = 'none';
+        document.getElementById("noise_remote").style.display = 'block';
     });
 
     video.events.on('peerFound', (peerID) => {

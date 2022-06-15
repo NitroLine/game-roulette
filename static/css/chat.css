@@ -2,10 +2,11 @@ textarea {
     border: 0;
     width: 100%;
     box-sizing: border-box;
-    color: #000;
+    color: #fff;
     appearance: none;
     border-radius: 0;
     box-shadow: none;
+    background-color: transparent;
     font-size: 18px;
     height: 66px;
     padding: 10px;
@@ -18,7 +19,7 @@ textarea {
     bottom: 0;
     left: 1px;
     width: 100%;
-    background: #fff;
+    color: #fff;
     z-index: 9;
     height: 70px;
     border-top: 1px solid #ddd;
@@ -65,7 +66,7 @@ textarea {
     position: relative;
     padding: 12px 10px 8px;
     border-radius: 6px;
-    background: #c39cd7;
+    background: #608dff;
     box-shadow: 0 0 3px rgb(0 0 0 / 40%);
     margin-left: 5px;
 }
