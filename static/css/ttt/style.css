@@ -39,7 +39,8 @@
     margin: 40px auto;
     display: inline-block;
     width: auto;
-    background-color: lightgoldenrodyellow;
+    background-color: white;
     padding: 10px;
-
+    border-radius: 5px;
+    opacity: .8;
 }

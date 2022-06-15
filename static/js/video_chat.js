@@ -100,6 +100,8 @@ function sendMessage(event) {
         return
     let newMessage = document.getElementById('inputmess').value;
     document.getElementById('inputmess').value = '';
+    if (newMessage.length <=1)
+        return;
     if (video.conn && video.conn.open) {
         video.conn.send(newMessage);
     }
