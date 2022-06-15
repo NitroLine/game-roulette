@@ -44,8 +44,8 @@ body{
     padding: 5px;
     text-decoration: #05E7E7 underline;
     font-weight: 1200;
-    font-size: large;
     font-size: 1.5em;
+    font-family: 'Geometria', Arial, sans-serif;
 }
 
 .players-names{
