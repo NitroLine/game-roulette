@@ -42,7 +42,7 @@ body {
 
 .name {
     width: 350px;
-    font-family: 'ABeeZee', fantasy;
+    font-family: 'Geometria', Arial, sans-serif;
     font-size: 30px;
     height: 45px;
     background: #DADADA;
@@ -60,17 +60,37 @@ body {
 }
 
 .btn {
-    padding: 5px 15px 5px 15px;
-    background-color: #05E7E7;
-    border: none;
+    font-weight: 700;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    box-shadow: none;
+    min-width: 70px;
+    box-sizing: border-box;
+    cursor: pointer;
     outline: none;
-    color: white;
-    font-size: 40px;
-    border-radius: 15px;
+    background: #05E7E7;
+    height: 56px;
+    align-items: center;
+    padding: 0 60px;
+    font-size: 36px;
+    color: #fff;
+    border-radius: 7px;
+    border: 0;
+    font-family: 'Geometria', Arial, sans-serif;
+    opacity: .9;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
 }
 
 .btn:hover {
-    background-color: #03BDBD;
+    opacity: 1;
+}
+
+.btn:disabled {
+    background: rgb(99, 99, 99);
+    opacity: 1;
 }
 
 .game {
