@@ -85,11 +85,11 @@ socket.on("move", () => {
 });
 
 function changeWhoMoveView(prevPlayer, nextPlayer) {
-    let prevVideo = (prevPlayer === playerNumber) ? 'remote-video' : 'local-video';
-    let nextVideo = (nextPlayer === playerNumber) ? 'remote-video' : 'local-video';
+    let prevVideo = (prevPlayer === playerNumber) ? '.remote-player' : '.local-player';
+    let nextVideo = (nextPlayer === playerNumber) ? '.remote-player' : '.local-player';
     console.log(prevVideo, nextVideo, prevPlayer, nextPlayer);
-    document.getElementById(prevVideo).classList.remove('border');
-    document.getElementById(nextVideo).classList.add('border');
+    $(prevVideo).removeClass('border');
+    $(nextVideo).addClass('border');
 }
 
 function getOpponentSide(playerSide) {

@@ -11,11 +11,13 @@ async function initVideo() {
         let video = document.getElementById("local-video")
         video.style.display = 'block';
         video.srcObject = stream;
-        video.hidden = false;
         document.getElementById("noise_local").style.display = 'none';
         if (stream.getVideoTracks().length === 0){
-            video.hidden = true;
-            document.getElementById("no_video_remote").style.display = 'block';
+            video.style.display = 'none';
+            video.classList.remove('local-player')
+            let noVideoImage = document.getElementById("no_video_local")
+            noVideoImage.style.display = 'block';
+            noVideoImage.classList.add('local-player')
         }
     });
 
@@ -23,11 +25,13 @@ async function initVideo() {
         let video = document.getElementById("remote-video")
         video.style.display = 'block';
         video.srcObject = stream;
-        video.hidden = false;
         document.getElementById("noise_remote").style.display = 'none';
         if (stream.getVideoTracks().length === 0){
-            video.hidden = true;
+            video.style.display = 'none';
             document.getElementById("no_video_remote").style.display = 'block';
+            let noVideoImage = document.getElementById("no_video_remote")
+            noVideoImage.style.display = 'block';
+            noVideoImage.classList.add('remote-player')
         }
     });
 
@@ -39,6 +43,10 @@ async function initVideo() {
     video.events.on('closed', () => {
         statusEl.innerHTML = "Opponent exit. ";
         btn.disabled = true;
+        let noVideoImage = document.getElementById("no_video_remote")
+        noVideoImage.style.display = 'none';
+        noVideoImage.classList.remove('remote-player');
+        noVideoImage.classList.add('remote-player');
         document.getElementById("remote-video").style.display = 'none';
         document.getElementById("remote-video").style.display = 'none';
         document.getElementById("no_video_remote").style.display = 'none';
