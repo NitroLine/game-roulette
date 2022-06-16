@@ -124,5 +124,5 @@ html.modal-active, body.modal-active {
 #modal-container .modal-background .modal p {
     font-size: 18px;
     line-height: 22px;
-    color: black;
+    color: #858585;
 }

@@ -36,6 +36,7 @@ socket.request = function (arg) {
 }
 
 socket.on("startGame", async (peerId, playerSide, opponentUsername) => {
+    isGameStartMove = false;
     await video.connect(peerId);
     playerNumber = playerSide;
     enemyUsername = opponentUsername

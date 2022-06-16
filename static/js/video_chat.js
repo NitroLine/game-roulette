@@ -6,17 +6,29 @@ let isActive = true;
 const statusEl = document.getElementById('status');
 const btn = document.getElementById('start_btn');
 
-async function init() {
+async function initVideo() {
     video.events.on('localstreamupdate', (stream) => {
-        document.getElementById("local-video").srcObject = stream;
-        document.getElementById("local-video").style.display = 'block';
+        let video = document.getElementById("local-video")
+        video.style.display = 'block';
+        video.srcObject = stream;
+        video.hidden = false;
         document.getElementById("noise_local").style.display = 'none';
+        if (stream.getVideoTracks().length === 0){
+            video.hidden = true;
+            document.getElementById("no_video_remote").style.display = 'block';
+        }
     });
 
     video.events.on('remotestreamupdate', (stream) => {
-        document.getElementById("remote-video").style.display = 'block';
-        document.getElementById("remote-video").srcObject = stream;
+        let video = document.getElementById("remote-video")
+        video.style.display = 'block';
+        video.srcObject = stream;
+        video.hidden = false;
         document.getElementById("noise_remote").style.display = 'none';
+        if (stream.getVideoTracks().length === 0){
+            video.hidden = true;
+            document.getElementById("no_video_remote").style.display = 'block';
+        }
     });
 
     video.events.on('connected', () => {
@@ -29,6 +41,7 @@ async function init() {
         btn.disabled = true;
         document.getElementById("remote-video").style.display = 'none';
         document.getElementById("remote-video").style.display = 'none';
+        document.getElementById("no_video_remote").style.display = 'none';
         document.getElementById("noise_remote").style.display = 'block';
     });
 
@@ -54,6 +67,7 @@ async function init() {
         messages.scrollTop = messages.scrollHeight;
         chatList.push(chatElement);
     });
+    let success = true;
     try {
         await video.startLocalStream({video: true, audio: true});
     } catch (e) {
@@ -61,9 +75,12 @@ async function init() {
             await video.startLocalStream({video: false, audio: true});
         } catch (e) {
             document.getElementById('status').innerHTML = "Error while starting stream " + String(e);
+            openModal("No access for camera!", String(e));
+            success = false;
         }
     }
-    video.init();
+    if (success)
+        video.init();
 }
 
 function start() {
@@ -143,4 +160,4 @@ function openModal(message, info = "") {
     document.getElementById('game-over-sound').play();
 }
 
-init();
+initVideo();

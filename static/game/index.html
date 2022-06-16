@@ -20,8 +20,6 @@
     <script crossorigin="anonymous"
             integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
             src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-
 </head>
 <body>
 
@@ -29,12 +27,13 @@
     <div class="block" id="menu">
         <div id="status">Setting up camera...</div>
     </div>
-
     <div class="block" id="live">
         <video autoplay class="video-el" style="display: none" id="remote-video"></video>
         <img src="../assets/noise_gif.gif" class="video-el" alt="niose" id="noise_remote">
+        <img src="../assets/no_video.png" class="video-el" alt="niose" id="no_video_remote" style="display: none">
         <video autoplay class="video-el" id="local-video" muted style="display: none"></video>
         <img src="../assets/noise_gif.gif" class="video-el" alt="niose" id="noise_local">
+        <img src="../assets/no_video.png" class="video-el" alt="niose" id="no_video_local" style="display: none">
         <div class="controls">
             <div class="voice-control" onclick="toggleMic()"><i class="fas fa-microphone" id="mic_icon"></i></div>
             <button class="btn" disabled id="start_btn"> Ready</button>
