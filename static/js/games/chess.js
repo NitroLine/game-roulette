@@ -1,6 +1,5 @@
 const playerSides = {first: "while", second: "black"};
 
-
 let side = null;
 let opponentSide = null;
 
@@ -24,7 +23,7 @@ socket.on("startGame", async (peerId, playerSide) => {
 });
 
 socket.on("move", (move) => {
-    let moveResult = game.move(move);
+    game.move(move);
     console.log(move);
     board.position(game.fen());
 });
@@ -72,7 +71,7 @@ function onMouseoverSquare(square, piece) {
     }
 }
 
-function onMouseoutSquare(square, piece) {
+function onMouseoutSquare() {
     removeGreySquares();
 }
 
@@ -81,7 +80,7 @@ function removeHighlights(color) {
     $board.find('.' + squareClass).removeClass('highlight-' + color);
 }
 
-function onDragStart(source, piece, position, orientation) {
+function onDragStart(source, piece) {
     // do not pick up pieces if the game is over
     if (game.game_over()) return false;
     if (piece && piece[0] === opponentSide) return false;

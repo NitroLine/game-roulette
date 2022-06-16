@@ -5,6 +5,7 @@ class Room {
         this.player1 = player1;
         this.player2 = null;
         this.gameType = gameType;
+        this.gameOver = false;
         this.game = new games[gameType]();
     }
 

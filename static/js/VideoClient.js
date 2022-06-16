@@ -167,10 +167,12 @@ class VideoClient {
     }
 
     close() {
-        this.conn = null;
-        this.call = null;
-        this.peer.destroy();
-        this.remoteStream = null;
+        if (this.conn !== null) {
+            this.conn = null;
+            this.call = null;
+            this.peer.destroy();
+            this.remoteStream = null;
+        }
         if (this.active)
             this.initPeer();
     }

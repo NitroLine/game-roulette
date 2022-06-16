@@ -2,7 +2,7 @@ const video = new VideoClient(true);
 let micOn = true;
 let myPeerId = null;
 let isFirst = true;
-
+let isActive = true;
 const statusEl = document.getElementById('status');
 const btn = document.getElementById('start_btn');
 
@@ -26,7 +26,8 @@ async function init() {
 
     video.events.on('closed', () => {
         statusEl.innerHTML = "Opponent exit. ";
-        btn.disabled = false;
+        btn.disabled = true;
+        document.getElementById("remote-video").style.display = 'none';
         document.getElementById("remote-video").style.display = 'none';
         document.getElementById("noise_remote").style.display = 'block';
     });
@@ -39,8 +40,12 @@ async function init() {
             btn.onclick = start;
             statusEl.innerHTML = "Press ready button";
             isFirst = false;
-        } else {
+        } else if (isActive) {
             start();
+        }
+        else {
+            btn.disabled = false
+            btn.onclick = start
         }
     });
     video.events.on('data', (data) => {
@@ -67,15 +72,20 @@ function start() {
     socket.emit("addToQueue", myPeerId, gameType, username);
     statusEl.innerHTML = "Searching opponent...";
     btn.disabled = true;
-    btn.onclick = nextOpponent
-    btn.innerHTML = "Next"
+    btn.onclick = nextOpponent;
+    btn.innerHTML = "Next";
     video.active = true;
+    isActive = true;
 }
 
 function nextOpponent() {
-    console.log("NEXT OPPONENT")
-    video.close()
+    console.log("NEXT OPPONENT");
+    viewPlayerUsernames(username);
+    video.close();
+    video.active = true;
+    socket.emit("leave");
     btn.disabled = true;
+    isActive = true;
 }
 
 function createChatElement(message, answer = false) {
@@ -125,5 +135,11 @@ function toggleMic() {
     video.toggleAudio(micOn)
 }
 
-
+function openModal(message, info = "") {
+    document.getElementsByTagName('body')[0].classList.add('modal-active');
+    document.getElementById('modal-container').className = 'open';
+    document.getElementById('modal-message').innerText = message;
+    document.getElementById('modal-info').innerText = info;
+    isActive = false;
+}
 init();

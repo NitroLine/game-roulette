@@ -38,9 +38,9 @@ export class TTTGame extends BaseGame {
         if (winner === Field.EMPTY) {
             let anyMove = this._isAnyMove()
             if (anyMove)
-                return GameStatus.NOTHING
+                return {status: GameStatus.NOTHING}
             this.isEnded = true;
-            return GameStatus.DRAW;
+            return {status: GameStatus.DRAW};
         }
         this.isEnded = true;
         return {status: GameStatus.WIN, side: this._getPlayerSide(winner)};

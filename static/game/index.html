@@ -8,7 +8,7 @@
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/chat.css" rel="stylesheet">
     <link href="../css/ttt/style.css" rel="stylesheet">
-    <script crossorigin="anonymous" src="https://kit.fontawesome.com/d1722654fc.js"></script>
+    <script crossorigin="anonymous" src="../js/lib/fontawsome.js"></script>
     <link crossorigin="anonymous"
           href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
           integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
@@ -37,8 +37,8 @@
 
     <div class="block" id="live">
         <video autoplay class="video-el" style="display: none" id="remote-video"></video>
-        <img src="../assets/noise_gif.gif" class="video-el" alt="niose"  id="noise_remote">
-        <video autoplay class="video-el" id="local-video" muted  style="display: none"></video>
+        <img src="../assets/noise_gif.gif" class="video-el" alt="niose" id="noise_remote">
+        <video autoplay class="video-el" id="local-video" muted style="display: none"></video>
         <img src="../assets/noise_gif.gif" class="video-el" alt="niose" id="noise_local">
         <div class="controls">
             <div class="voice-control" onclick="toggleMic()"><i class="fas fa-microphone" id="mic_icon"></i></div>
@@ -57,12 +57,28 @@
             </div>
         </div>
     </div>
-    <div claas="block" id="game-block">
+    <div class="block" id="game-block">
         <div class="players-names" id="enemy-name">EnemyName</div>
         <div id="game"></div>
-        <div class="players-names"  id="player-name">PlayerName</div>
+        <div class="players-names" id="player-name">PlayerName</div>
     </div>
 </div>
+
+<div id="modal-container">
+    <div class="modal-background">
+        <div class="modal">
+            <h2 class="modal-message" id="modal-message">You win!</h2>
+            <p id="modal-info"></p>
+            <button class="btn"
+                    onclick="document.getElementById('modal-container').classList.add('out'); document.getElementsByTagName('body')[0].className='';">
+                Continue
+            </button>
+        </div>
+    </div>
+</div>
+<audio id="start-game-sound">
+    <source src="../assets/audio/start_game.mp3" type="audio/mp3">
+</audio>
 <div id="scripts">
     <script src="../js/VideoClient.js"></script>
     <script src="../js/client.js"></script>

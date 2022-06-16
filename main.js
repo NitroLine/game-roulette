@@ -6,7 +6,7 @@ import {Server} from 'socket.io';
 import {fileURLToPath} from 'url';
 
 import {games} from "./games/games.js";
-import {getOpponentSide, getRandomInt} from './server/utils.js';
+import {getRandomInt} from './server/utils.js';
 import {Room} from './server/room.js';
 import {GameStatus, MoveStatus, PlayerSide} from './server/enums.js';
 import config from './server/config.js';
@@ -79,15 +79,28 @@ io.on("connection", (socket) => {
             queue = queue.filter(r => r.player1 !== socket);
             return;
         }
-        if (room === null) return;
+        if (room === null || room.gameOver) return;
 
-        room.player1.emit("gameOver", GameStatus.WIN, getOpponentSide(socket.side));
-        room.player2.emit("gameOver", GameStatus.WIN, getOpponentSide(socket.side));
+        room.player1.emit("gameOver", GameStatus.TECH_WIN);
+        room.player2.emit("gameOver", GameStatus.TECH_WIN);
+        room.gameOver = true;
+        room = null;
+    });
+
+    socket.on('leave', () => {
+        console.log("leave")
+        if (room === null || room.gameOver) return;
+        if (socket === room.player1)
+            room.player2.emit("gameOver", GameStatus.TECH_WIN);
+        else
+            room.player1.emit("gameOver", GameStatus.TECH_WIN);
+        room.gameOver = true;
+        room = null;
     });
 
     socket.on("move", (move, callback) => {
         console.log("move", move);
-        if (!room || !room.game)
+        if (!room || !room.game || !room.player2 || room.gameOver)
             return;
         let status = room.game.move(socket.side, move);
         if (status === MoveStatus.BAD_MOVE) {
@@ -103,6 +116,7 @@ io.on("connection", (socket) => {
         if (gameStatus.status !== GameStatus.NOTHING) {
             room.player1.emit("gameOver", gameStatus.status, gameStatus.side);
             room.player2.emit("gameOver", gameStatus.status, gameStatus.side);
+            room.gameOver = true;
         }
     });
 });
