@@ -26,6 +26,9 @@ async function initVideo() {
         video.style.display = 'block';
         video.srcObject = stream;
         document.getElementById("noise_remote").style.display = 'none';
+        console.log(stream);
+        console.log(stream.getVideoTracks())
+        console.log(stream.getTracks());
         if (stream.getVideoTracks().length === 0){
             video.style.display = 'none';
             document.getElementById("no_video_remote").style.display = 'block';
