@@ -43,7 +43,6 @@ textarea {
 }
 
 .chat-message {
-    position: relative;
     padding: 10px 0 0 10px;
     max-width: 75%;
     clear: both;
@@ -64,14 +63,11 @@ textarea {
 }
 
 .chat-message-text {
-    position: relative;
     padding: 12px 10px 8px;
     border-radius: 6px;
     background: #608dff;
     box-shadow: 0 0 3px rgb(0 0 0 / 40%);
-    margin-left: 5px;
-    width: 100%;
-    text-align: right;
+    max-width: 200px;
 }
 
 .chat-answer {
@@ -84,3 +80,4 @@ textarea {
     float: right;
     margin-right: 5px;
 }
+

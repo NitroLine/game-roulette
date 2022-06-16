@@ -76,7 +76,14 @@ class VideoClient {
             this.peer.destroy()
             this.peer = null;
         }
-        this.peer = new Peer();
+        this.peer = new Peer({
+            config: {'iceServers': [
+                    {url:'stun:stun.rixtelecom.se'},
+                    {url:'stun:stun.schlund.de'},
+                    {url:'stun:stun.l.google.com:19302'},
+                    {url:'stun:stun1.l.google.com:19302'},
+                ]
+            }});
         this.peer.on('open', (peerID) => {
             this.myPeerId = peerID;
             this.events.emit('peerFound', peerID);
