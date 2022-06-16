@@ -277,3 +277,7 @@ html.modal-active, body.modal-active {
     line-height: 22px;
     color: black;
 }
+
+.player-names {
+    font-size: 2em;
+}

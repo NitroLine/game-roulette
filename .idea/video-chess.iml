@@ -8,5 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="peerjs" level="application" />
+    <orderEntry type="library" name="jquery-3.5.1" level="application" />
+    <orderEntry type="library" name="@chrisoakman/chessboardjs" level="application" />
   </component>
 </module>

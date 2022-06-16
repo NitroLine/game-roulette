@@ -20,12 +20,6 @@
             integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
             src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-    <script crossorigin="anonymous"
-            integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
-            src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha512-LVaWbRl5YcZ2sKeoSDohbL3rSxsDK8y+O0IqLBnrd+z1U4zFwNg++cWfkLsOljysASsAuWMpY/ar0mWTIZ0nsw=="
-            referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.js"></script>
 
 </head>
 <body>
@@ -76,9 +70,16 @@
         </div>
     </div>
 </div>
-<audio id="start-game-sound">
-    <source src="../assets/audio/start_game.mp3" type="audio/mp3">
-</audio>
+
+<div id="audios">
+    <audio id="start-game-sound">
+        <source src="../assets/audio/start_game.mp3" type="audio/mp3">
+    </audio>
+    <audio id="game-over-sound">
+        <source src="../assets/audio/game-over.mp3" type="audio/mp3">
+    </audio>
+</div>
+
 <div id="scripts">
     <script src="../js/VideoClient.js"></script>
     <script src="../js/client.js"></script>

@@ -42,8 +42,7 @@ async function init() {
             isFirst = false;
         } else if (isActive) {
             start();
-        }
-        else {
+        } else {
             btn.disabled = false
             btn.onclick = start
         }
@@ -107,10 +106,10 @@ document.getElementById('inputmess').addEventListener('keyup', sendMessage)
 
 function sendMessage(event) {
     if (event.key !== 'Enter')
-        return
+        return;
     let newMessage = document.getElementById('inputmess').value;
     document.getElementById('inputmess').value = '';
-    if (newMessage.length <=1)
+    if (newMessage.length <= 1)
         return;
     if (video.conn && video.conn.open) {
         video.conn.send(newMessage);
@@ -132,7 +131,7 @@ function toggleMic() {
         icon.classList.add('fa-microphone');
     }
     micOn = !micOn;
-    video.toggleAudio(micOn)
+    video.toggleAudio(micOn);
 }
 
 function openModal(message, info = "") {
@@ -141,5 +140,7 @@ function openModal(message, info = "") {
     document.getElementById('modal-message').innerText = message;
     document.getElementById('modal-info').innerText = info;
     isActive = false;
+    document.getElementById('game-over-sound').play();
 }
+
 init();

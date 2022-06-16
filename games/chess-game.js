@@ -24,7 +24,7 @@ class ChessGame extends BaseGame {
 
     getStatus() {
         if (this.chessGame.in_checkmate())
-            return {status: GameStatus.WIN, side: this._getPlayerSide(this.chessGame.turn())};
+            return {status: GameStatus.WIN, side: this._getPlayerSide(this.chessGame.turn() === 'w' ? 'b' : 'w')};
         else if (this._isDraw()) return {status: GameStatus.DRAW};
         else return {status: GameStatus.NOTHING};
     }

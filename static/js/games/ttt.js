@@ -5,9 +5,9 @@ let side = null;
 let opponentSide = null;
 let currentMove = 'X';
 
-let game = init();
+addAudios();
+let game = initGame();
 renderGrid(3);
-
 
 socket.on("startGame", async (peerId, playerSide) => {
     console.log(playerSide); //LOG
@@ -23,22 +23,15 @@ socket.on("move", (move) => {
     currentMove = side;
 });
 
-function init() {
-    let game = document.getElementById('game');
-
-    let container = document.createElement('div');
-    container.className = 'container';
-
-    let table = document.createElement('table');
-    table.className = 'table';
-
-    let tbody = document.createElement('tbody');
-    tbody.id = 'fieldWrapper';
-
-    table.append(tbody);
-    container.append(table)
-    game.append(container);
-    return tbody;
+function initGame() {
+    $('#game').append($(`
+        <div class="container">
+            <table class="table">
+                <tbody id="fieldWrapper"></tbody>
+            </table>
+        </div>
+    `));
+    return document.getElementById('fieldWrapper');
 }
 
 function startGame() {
@@ -71,6 +64,7 @@ async function cellClickHandler(row, col) {
 }
 
 function renderSymbolInCell(symbol, row, col, color = '#333') {
+    $('#move-sound').trigger('play');
     const targetCell = findCell(row, col);
     targetCell.textContent = symbol;
     targetCell.style.color = color;
@@ -79,4 +73,12 @@ function renderSymbolInCell(symbol, row, col, color = '#333') {
 function findCell(row, col) {
     const targetRow = game.querySelectorAll('tr')[row];
     return targetRow.querySelectorAll('td')[col];
+}
+
+function addAudios() {
+    $("#audios").append($(`
+        <audio id="move-sound">
+            <source src="../assets/audio/ttt_move.mp3" type="audio/mp3">
+        </audio>
+    `));
 }
