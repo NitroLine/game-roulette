@@ -98,8 +98,10 @@ class VideoClient {
                 }
                 call.answer(this.localStream); // Answer the call with an A/V stream.
                 call.on('stream', (remoteStream) => {
-                    this.remoteStream = remoteStream;
-                    this.events.emit('remotestreamupdate', remoteStream);
+                    if (!this.remoteStream || this.remoteStream.getVideoTracks().length === 0) {
+                        this.remoteStream = remoteStream;
+                        this.events.emit('remotestreamupdate', remoteStream);
+                    }
                 });
                 this.call = call;
             } catch (err) {
@@ -165,8 +167,10 @@ class VideoClient {
             let call = this.peer.call(peerId, this.localStream);
             this.call = call;
             call.on('stream', (remoteStream) => {
-                this.remoteStream = remoteStream;
-                this.events.emit('remotestreamupdate', remoteStream);
+                if (!this.remoteStream || this.remoteStream.getVideoTracks().length === 0) {
+                    this.remoteStream = remoteStream;
+                    this.events.emit('remotestreamupdate', remoteStream);
+                }
             });
         } catch (err) {
             console.error('Error on connect', err);
@@ -174,7 +178,7 @@ class VideoClient {
     }
 
     close() {
-        if (this.conn !== null) {
+        if (this.conn !== null || !this.peer.destroyed) {
             this.conn = null;
             this.call = null;
             this.peer.destroy();
