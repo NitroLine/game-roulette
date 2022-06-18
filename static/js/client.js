@@ -4,10 +4,10 @@ const MoveStatus = { OK: "ok", BAD_MOVE: "bad move" };
 const PlayerSide = { FIRST: "first", SECOND: "second" };
 
 const GameScript = {
-    chess: "../js/games/chess.js",
-    ttt: "../js/games/ttt.js",
-    rusRoulette: "../js/games/rusRoulette.js"
-}
+  chess: "../js/games/chess.js",
+  ttt: "../js/games/ttt.js",
+  rusRoulette: "../js/games/rusRoulette.js"
+};
 
 const winMessage = "You Win!";
 const loseMessage = "You Lose!";
