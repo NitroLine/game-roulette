@@ -1,7 +1,7 @@
 const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || 0;
 
 class EventEmitter {
-  constructor () {
+  constructor() {
     this.events = {};
   }
 
@@ -9,7 +9,7 @@ class EventEmitter {
      * @param {string} eventName
      * @param {Function} callback
      */
-  on (eventName, callback) {
+  on(eventName, callback) {
     !this.events[eventName] && (this.events[eventName] = []);
     this.events[eventName].push(callback);
   }
@@ -18,22 +18,22 @@ class EventEmitter {
      * @param {string} eventName
      * @param {Function} callback
      */
-  unsubscribe (eventName, callback) {
-    this.events[eventName] = this.events[eventName].filter(eventCallback => callback !== eventCallback);
+  unsubscribe(eventName, callback) {
+    this.events[eventName] = this.events[eventName].filter((eventCallback) => callback !== eventCallback);
   }
 
   /**
      * @param {string} eventName
      * @param {any} args
      */
-  emit (eventName, args) {
+  emit(eventName, args) {
     const event = this.events[eventName];
-    event && event.forEach(callback => callback.call(null, args));
+    event && event.forEach((callback) => callback(args));
   }
 }
 
 class VideoClient {
-  constructor (_debug = true) {
+  constructor(_debug = true) {
     this.conn = null;
     this.myPeerId = null;
     this.peer = null;
@@ -53,7 +53,7 @@ class VideoClient {
      * @param {MediaStreamConstraints} constraints
      * @return {Promise}
      */
-  startLocalStream (constraints = { video: false, audio: true }) {
+  startLocalStream(constraints = { video: false, audio: true }) {
     return new Promise((resolve, reject) => {
       getUserMedia(constraints, (stream) => {
         this.localStream = stream;
@@ -62,13 +62,22 @@ class VideoClient {
           navigator.mediaDevices.enumerateDevices()
             .then((devices) => {
               devices.forEach((device) => {
-                if (device.deviceId === "") { return; }
-                if (device.kind === "audioinput") { this.microphones.push(device); }
-                if (device.kind === "videoinput") { this.cameras.push(device); }
+                if (device.deviceId === "") {
+                  return;
+                }
+
+                if (device.kind === "audioinput") {
+                  this.microphones.push(device);
+                }
+
+                if (device.kind === "videoinput") {
+                  this.cameras.push(device);
+                }
               });
               this.events.emit("devicesupdated", { cameras: this.cameras, microphones: this.microphones });
             });
         }
+
         resolve(stream);
       }, (err) => reject(err));
     });
@@ -77,9 +86,9 @@ class VideoClient {
   /**
      * Stop local stream
      */
-  stopLocalStream () {
+  stopLocalStream() {
     if (this.localStream) {
-      this.localStream.getTracks().forEach(function (track) {
+      this.localStream.getTracks().forEach((track) => {
         track.stop();
       });
     }
@@ -88,17 +97,18 @@ class VideoClient {
   /**
      * Replace tracks in sending stream
      */
-  async replaceStream () {
+  async replaceStream() {
     if (this.call && this.call.peerConnection) {
-      const peerConnection = this.call.peerConnection;
+      const { peerConnection } = this.call;
       for (const sender of peerConnection.getSenders()) {
-        if (sender.track.kind == "audio") {
+        if (sender.track.kind === "audio") {
           if (this.localStream.getAudioTracks().length > 0) {
             console.log(sender.track.kind);
             await sender.replaceTrack(this.localStream.getAudioTracks()[0]);
           }
         }
-        if (sender.track.kind == "video") {
+
+        if (sender.track.kind === "video") {
           if (this.localStream.getVideoTracks().length > 0) {
             console.log(sender.track.kind);
             await sender.replaceTrack(this.localStream.getVideoTracks()[0]);
@@ -112,26 +122,31 @@ class VideoClient {
      * Toggle audio stream
      * @param {Boolean} audioState request stream state
      */
-  toggleAudio (audioState) {
-    if (this.localStream) { this.localStream.getAudioTracks()[0].enabled = audioState; }
+  toggleAudio(audioState) {
+    if (this.localStream) {
+      this.localStream.getAudioTracks()[0].enabled = audioState;
+    }
   }
 
   /**
      * Toggle video stream
      * @param {Boolean} videoState request stream state
      */
-  toggleVideo (videoState) {
-    if (this.localStream) { this.localStream.getVideoTracks()[0].enabled = videoState; }
+  toggleVideo(videoState) {
+    if (this.localStream) {
+      this.localStream.getVideoTracks()[0].enabled = videoState;
+    }
   }
 
   /**
      * Init peer connection
      */
-  initPeer () {
+  initPeer() {
     if (this.peer && !this.peer.destroyed) {
       this.peer.destroy();
       this.peer = null;
     }
+
     this.peer = new Peer({
       config: {
         iceServers: [
@@ -148,11 +163,12 @@ class VideoClient {
       this.status = "open";
     });
 
-    this.peer.on("call", async (call) => {
+    this.peer.on("call", async(call) => {
       try {
         if (!this.localStream) {
           await this.startLocalStream();
         }
+
         call.answer(this.localStream); // Answer the call with an A/V stream.
         call.on("stream", (remoteStream) => {
           console.log(remoteStream.getVideoTracks());
@@ -187,11 +203,11 @@ class VideoClient {
     });
   }
 
-  init () {
+  init() {
     this.initPeer();
   }
 
-  debug (message) {
+  debug(message) {
     if (this._debug) {
       console.log("Video|| - ", message);
     }
@@ -201,11 +217,12 @@ class VideoClient {
      * Connect to another client by peer id
      * @param {String} peerId
      */
-  async connect (peerId) {
+  async connect(peerId) {
     if (this.peer.destroyed) {
       this.debug(`Calling connect for destroyed peer with peerId ${peerId}`);
       return;
     }
+
     this.debug(`connect with peerId ${peerId}`);
     this.conn = this.peer.connect(peerId);
     this.conn.on("open", () => {
@@ -227,6 +244,7 @@ class VideoClient {
       if (!this.localStream) {
         await this.startLocalStream();
       }
+
       const call = this.peer.call(peerId, this.localStream);
       this.call = call;
       call.on("stream", (remoteStream) => {
@@ -245,13 +263,16 @@ class VideoClient {
   /**
      * Close all connections and destroy peer
      */
-  close () {
+  close() {
     if (this.conn !== null || !this.peer.destroyed) {
       this.conn = null;
       this.call = null;
       this.peer.destroy();
       this.remoteStream = null;
     }
-    if (this.active) { this.initPeer(); }
+
+    if (this.active) {
+      this.initPeer();
+    }
   }
 }

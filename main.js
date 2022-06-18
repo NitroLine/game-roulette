@@ -5,15 +5,15 @@ import https from "https";
 import { Server } from "socket.io";
 import { fileURLToPath } from "url";
 
+import fs from "fs";
 import { games } from "./games/games.js";
 import { getRandomInt } from "./server/utils.js";
 import { Room } from "./server/room.js";
 import { GameStatus, MoveStatus, PlayerSide } from "./server/enums.js";
 import config from "./server/config.js";
-import fs from "fs";
 
 const app = express();
-const port = config.port;
+const { port } = config;
 const { isTls, sslKey, sslCrt } = config;
 if (isTls && (!fs.existsSync(sslKey) || !fs.existsSync(sslCrt))) {
   console.error("SSL files are not found. check your config.js file");
@@ -51,9 +51,10 @@ io.on("connection", (socket) => {
       socket.disconnect();
       return;
     }
-    if (queue.some(r => r.gameType === gameType)) {
-      room = queue.find(r => r.gameType === gameType);
-      queue = queue.filter(r => r !== room);
+
+    if (queue.some((r) => r.gameType === gameType)) {
+      room = queue.find((r) => r.gameType === gameType);
+      queue = queue.filter((r) => r !== room);
 
       room.setPlayer2(socket);
 
@@ -76,11 +77,14 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("disconnect"); // LOG
-    if (queue.some(r => r.player1 === socket)) {
-      queue = queue.filter(r => r.player1 !== socket);
+    if (queue.some((r) => r.player1 === socket)) {
+      queue = queue.filter((r) => r.player1 !== socket);
       return;
     }
-    if (room === null || room.gameOver) return;
+
+    if (room === null || room.gameOver) {
+      return;
+    }
 
     room.player1.emit("gameOver", GameStatus.TECH_WIN);
     room.player2.emit("gameOver", GameStatus.TECH_WIN);
@@ -90,21 +94,37 @@ io.on("connection", (socket) => {
 
   socket.on("leave", () => {
     console.log("leave");
-    if (room === null || room.gameOver) return;
-    if (socket === room.player1) { room.player2.emit("gameOver", GameStatus.TECH_WIN); } else { room.player1.emit("gameOver", GameStatus.TECH_WIN); }
+    if (room === null || room.gameOver) {
+      return;
+    }
+
+    if (socket === room.player1) {
+      room.player2.emit("gameOver", GameStatus.TECH_WIN);
+    } else {
+      room.player1.emit("gameOver", GameStatus.TECH_WIN);
+    }
+
     room.gameOver = true;
     room = null;
   });
 
   socket.on("move", (move, callback) => {
     console.log("move", move);
-    if (!room || !room.game || !room.player2 || room.gameOver) { return; }
+    if (!room || !room.game || !room.player2 || room.gameOver) {
+      return;
+    }
+
     const status = room.game.move(socket.side, move);
     if (status === MoveStatus.BAD_MOVE) {
       callback(status);
       return;
     }
-    if (room.player1.side === socket.side) { room.player2.emit("move", move); } else room.player1.emit("move", move);
+
+    if (room.player1.side === socket.side) {
+      room.player2.emit("move", move);
+    } else {
+      room.player1.emit("move", move);
+    }
 
     callback(status);
     const gameStatus = room.game.getStatus();
@@ -121,5 +141,6 @@ app.use("/", (req, res) => {
   if (req.originalUrl !== "/") {
     return res.status(404).send("Sorry, we cannot find that!");
   }
+
   return res.redirect("/v/");
 });

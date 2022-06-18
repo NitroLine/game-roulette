@@ -1,11 +1,11 @@
 class BaseGame {
-  start () {
+  start() {
   }
 
-  move (player, step) {
+  move(player, step) {
   }
 
-  getStatus () {
+  getStatus() {
   }
 }
 

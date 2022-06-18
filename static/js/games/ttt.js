@@ -9,7 +9,7 @@ addAudios();
 const game = initGame();
 renderGrid(3);
 
-socket.on("startGame", async (peerId, playerSide) => {
+socket.on("startGame", async(peerId, playerSide) => {
   console.log(playerSide); // LOG
   side = playerSides[playerSide];
   opponentSide = side === "X" ? "O" : "X";
@@ -23,7 +23,7 @@ socket.on("move", (move) => {
   currentMove = side;
 });
 
-function initGame () {
+function initGame() {
   $("#game").append($(`
         <div class="container">
             <table class="table">
@@ -34,12 +34,12 @@ function initGame () {
   return document.getElementById("fieldWrapper");
 }
 
-function startGame () {
+function startGame() {
   game.innerHTML = "";
   renderGrid(3);
 }
 
-function renderGrid (dimension) {
+function renderGrid(dimension) {
   game.innerHTML = "";
   for (let i = 0; i < dimension; i++) {
     const row = document.createElement("tr");
@@ -49,32 +49,39 @@ function renderGrid (dimension) {
       cell.addEventListener("click", () => cellClickHandler(i, j));
       row.appendChild(cell);
     }
+
     game.appendChild(row);
   }
 }
 
-async function cellClickHandler (row, col) {
-  if (currentMove !== side) { return; }
+async function cellClickHandler(row, col) {
+  if (currentMove !== side) {
+    return;
+  }
+
   const result = await socket.request({ row, col });
-  if (result === MoveStatus.BAD_MOVE) return;
+  if (result === MoveStatus.BAD_MOVE) {
+    return;
+  }
+
   renderSymbolInCell(side, row, col);
   currentMove = opponentSide;
   console.log(`Clicked on cell: ${row}, ${col}`);
 }
 
-function renderSymbolInCell (symbol, row, col, color = "#333") {
+function renderSymbolInCell(symbol, row, col, color = "#333") {
   $("#move-sound").trigger("play");
   const targetCell = findCell(row, col);
   targetCell.textContent = symbol;
   targetCell.style.color = color;
 }
 
-function findCell (row, col) {
+function findCell(row, col) {
   const targetRow = game.querySelectorAll("tr")[row];
   return targetRow.querySelectorAll("td")[col];
 }
 
-function addAudios () {
+function addAudios() {
   $("#audios").append($(`
         <audio id="move-sound">
             <source src="../assets/audio/ttt_move.mp3" type="audio/mp3">

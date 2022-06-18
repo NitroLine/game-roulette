@@ -20,13 +20,14 @@ document.getElementById("scripts").appendChild(script);
 
 let playerNumber = null;
 
-socket.request = function (arg) {
+socket.request = function(arg) {
   return new Promise((resolve) => {
     socket.emit("move", arg, (status) => {
       if (status === MoveStatus.BAD_MOVE) {
         resolve(status);
         return;
       }
+
       isGameStartMove = true;
       viewPlayerUsernames(username, enemyUsername);
       changeWhoMoveView(getOpponentSide(playerNumber), playerNumber);
@@ -35,7 +36,7 @@ socket.request = function (arg) {
   });
 };
 
-socket.on("startGame", async (peerId, playerSide, opponentUsername) => {
+socket.on("startGame", async(peerId, playerSide, opponentUsername) => {
   isGameStartMove = false;
   await video.connect(peerId);
   playerNumber = playerSide;
@@ -57,6 +58,7 @@ socket.on("gameOver", (status, playerSide) => {
         openModal(loseMessage);
         document.getElementById("status").innerHTML = "You lose";
       }
+
       break;
     case GameStatus.DRAW:
       console.log("Draw"); // LOG
@@ -68,6 +70,7 @@ socket.on("gameOver", (status, playerSide) => {
       if (isGameStartMove) {
         openModal(winMessage, technicalMessage);
       }
+
       break;
     default:
       console.log("Nothing happened"); // LOG
@@ -84,7 +87,7 @@ socket.on("move", () => {
   isGameStartMove = true;
 });
 
-function changeWhoMoveView (prevPlayer, nextPlayer) {
+function changeWhoMoveView(prevPlayer, nextPlayer) {
   const prevVideo = (prevPlayer === playerNumber) ? ".remote-player" : ".local-player";
   const nextVideo = (nextPlayer === playerNumber) ? ".remote-player" : ".local-player";
   console.log(prevVideo, nextVideo, prevPlayer, nextPlayer);
@@ -92,11 +95,11 @@ function changeWhoMoveView (prevPlayer, nextPlayer) {
   $(nextVideo).addClass("border");
 }
 
-function getOpponentSide (playerSide) {
+function getOpponentSide(playerSide) {
   return (playerSide === PlayerSide.FIRST) ? PlayerSide.SECOND : PlayerSide.FIRST;
 }
 
-function viewPlayerUsernames (currName, enemyName = "...") {
+function viewPlayerUsernames(currName, enemyName = "...") {
   document.getElementById("player-name").innerText = currName;
   document.getElementById("enemy-name").innerText = enemyName;
 }
