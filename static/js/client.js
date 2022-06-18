@@ -32,9 +32,7 @@ socket.request = function(arg) {
         resolve(status);
         return;
       }
-
       isGameStartMove = true;
-      viewPlayerUsernames(username, enemyUsername);
       changeWhoMoveView(getOpponentSide(playerNumber), playerNumber);
       resolve(status);
     });

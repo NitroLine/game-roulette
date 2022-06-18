@@ -65,6 +65,7 @@ async function initVideo() {
     const video = document.getElementById("remote-video");
     video.style.display = "none";
     video.style.display = "none";
+    viewPlayerUsernames(username);
     $(".remote-player").removeClass("border");
     $(".local-player").removeClass("border");
     document.getElementById("noise_remote").style.display = "block";

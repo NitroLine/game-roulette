@@ -57,10 +57,12 @@ socket.on("move", () => {
 });
 
 socket.on("gameOver", (status, playerSide) => {
-  $("#shot-sound").trigger("play");
-  if (playerSide !== side) {
-    $("#death-shot").trigger("play");
-    document.getElementById("title").style.display = "block";
+  if(status !== GameStatus.TECH_WIN){
+    $("#shot-sound").trigger("play");
+    if (playerSide !== side) {
+      $("#death-shot").trigger("play");
+      document.getElementById("title").style.display = "block";
+    }
   }
 });
 
