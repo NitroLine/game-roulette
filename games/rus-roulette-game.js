@@ -30,6 +30,6 @@ export class RusRouletteGame extends BaseGame {
   }
 
   _getOppositeSide(side) {
-    return (side === PlayerSide.FIRST) ? PlayerSide.SECOND : PlayerSide.SECOND;
+    return (side === PlayerSide.FIRST) ? PlayerSide.SECOND : PlayerSide.FIRST;
   }
 }

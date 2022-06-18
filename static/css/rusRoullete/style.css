@@ -25,7 +25,7 @@
     left: calc(50% - 50px);
     box-shadow:rgba(0,0,0,.3) 0 5px 30px, inset black 0 10px 15px, inset rgba(0,0,0,.3) 0 0 50px;
     border: 25px solid #222;
-    z-index: 10;
+    z-index: 3;
 }
 #rus_roulette:after {
     content: '';
@@ -37,7 +37,7 @@
     top: calc(50% - 40px);
     left: calc(50% - 25px);
     background: #222;
-    z-index: 5;
+    z-index: 2;
     box-shadow: rgba(0,0,0,.3) 0 5px 30px, #210 25px 100px 0, #210 0px 100px 0, #210 -25px 100px 0;
 }
 #gun {

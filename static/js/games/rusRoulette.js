@@ -24,6 +24,7 @@ socket.on("startGame", async(peerId, playerSide) => {
   chamber = 0;
   document.getElementById("title").style.display = "none";
   document.getElementById("gun").style.cssText = "-webkit-transform:rotate(" + chamber * 60 + "deg);-moz-transform:rotate(" + chamber * 60 + "deg);transform:rotate(" + chamber * 60 + "deg)";
+  chamber++;
 });
 
 socket.on("move", () => {
@@ -33,7 +34,7 @@ socket.on("move", () => {
 });
 
 socket.on("gameOver", (status, playerSide) => {
-  if (playerSide === side) {
+  if (playerSide !== side) {
     document.getElementById("title").style.display = "block";
   }
 });
