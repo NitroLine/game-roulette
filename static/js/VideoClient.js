@@ -41,6 +41,8 @@ class VideoClient {
         this.localStream = null;
         this._debug = _debug;
         this.remoteStream = null;
+        this.cameras = [];
+        this.microphones = [];
         this.events = new EventEmitter();
         this.call = null;
         this.active = false;
@@ -57,6 +59,20 @@ class VideoClient {
             getUserMedia(constraints, (stream) => {
                 this.localStream = stream;
                 this.events.emit('localstreamupdate', stream);
+                if (this.microphones.length === 0 && this.cameras.length === 0){
+                    navigator.mediaDevices.enumerateDevices()
+                        .then((devices) => {
+                            devices.forEach((device) => {
+                                if (device.deviceId === '')
+                                    return
+                                if (device.kind === 'audioinput')
+                                    this.microphones.push(device)
+                                if (device.kind === 'videoinput')
+                                    this.cameras.push(device)
+                            });
+                            this.events.emit('devicesupdated', {cameras: this.cameras, microphones: this.microphones})
+                        })
+                }
                 resolve(stream);
             }, (err) => reject(err))
         });
@@ -72,6 +88,31 @@ class VideoClient {
             });
         }
     }
+
+    /**
+     * Replace tracks in sending stream
+     */
+    async replaceStream(){
+        if (this.call && this.call.peerConnection)
+        {
+            const peerConnection = this.call.peerConnection;
+            for (const sender of peerConnection.getSenders()) {
+                if (sender.track.kind == "audio") {
+                    if (this.localStream.getAudioTracks().length > 0) {
+                        console.log(sender.track.kind);
+                        await sender.replaceTrack(this.localStream.getAudioTracks()[0]);
+                    }
+                }
+                if (sender.track.kind == "video") {
+                    if (this.localStream.getVideoTracks().length > 0) {
+                        console.log(sender.track.kind);
+                        await sender.replaceTrack(this.localStream.getVideoTracks()[0]);
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * Toggle audio stream
@@ -121,7 +162,9 @@ class VideoClient {
                 }
                 call.answer(this.localStream); // Answer the call with an A/V stream.
                 call.on('stream', (remoteStream) => {
-                    if (!this.remoteStream || this.remoteStream.getVideoTracks().length === 0) {
+                    console.log(remoteStream.getVideoTracks());
+                    console.log(remoteStream.getAudioTracks());
+                    if (!this.remoteStream || remoteStream.getVideoTracks().length >= this.remoteStream.getVideoTracks().length) {
                         this.remoteStream = remoteStream;
                         this.events.emit('remotestreamupdate', remoteStream);
                     }
@@ -194,7 +237,9 @@ class VideoClient {
             let call = this.peer.call(peerId, this.localStream);
             this.call = call;
             call.on('stream', (remoteStream) => {
-                if (!this.remoteStream || this.remoteStream.getVideoTracks().length === 0) {
+                console.log(remoteStream.getVideoTracks());
+                console.log(remoteStream.getAudioTracks());
+                if (!this.remoteStream || remoteStream.getVideoTracks().length >= this.remoteStream.getVideoTracks().length) {
                     this.remoteStream = remoteStream;
                     this.events.emit('remotestreamupdate', remoteStream);
                 }

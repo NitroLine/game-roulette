@@ -99,8 +99,12 @@ body {
 .controls {
     margin-top: 5px;
     display: flex;
+    min-height: 50px;
+    justify-content: center;
 }
-
+.hidden{
+    display: none;
+}
 .video-el {
     max-height: 40%;
     width: auto;
@@ -229,4 +233,55 @@ html {
     z-index: 2;
     transform: rotate(35deg) scale(1);
     transition: .15s linear;
+}
+
+.device-select-panel{
+    background: #172338;
+    position: absolute;
+    width: 340px;
+    padding: 15px 15px 6px;
+    box-shadow: 0 1px 3px 0 #000;
+    border-radius: 5px;
+    z-index: 9999;
+    margin: -150px 20px 20px;
+}
+
+.device-select-row{
+    line-height: 50px;
+    font-size: 15px;
+    background: #172338;
+    color: #fff;
+    position: relative;
+    width: 100%;
+    margin-bottom: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.device-select-row .devices{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+    flex: 1;
+    width: calc(100% - 18px);
+    border-color: #c3c3c3;
+    border-radius: 2px;
+    cursor: pointer;
+    background: #b3e8e8;
+    height: 35px;
+    line-height: normal;
+    font-weight: 400;
+    font-family: 'Geometria',Arial,sans-serif;
+ }
+#audioSource{
+    margin-left: 18px;
+}
+
+.device-select-row .togler label{
+    color: #8c8c8c;
+    font-size: 18px;
+    padding-left: 3px;
 }

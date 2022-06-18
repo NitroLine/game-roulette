@@ -1,9 +1,11 @@
 const video = new VideoClient(true);
 let micOn = true;
 let videoOn = true;
+let wasVideo = true;
 let myPeerId = null;
 let isFirst = true;
 let isActive = true;
+let deviceOpened = false;
 let remoteView = true;
 const statusEl = document.getElementById('status');
 const btn = document.getElementById('start_btn');
@@ -16,10 +18,10 @@ async function initVideo() {
         document.getElementById("noise_local").style.display = 'none';
         if (stream.getVideoTracks().length === 0){
             video.style.display = 'none';
-            video.classList.remove('local-player')
             let noVideoImage = document.getElementById("no_video_local")
             noVideoImage.style.display = 'block';
-            noVideoImage.classList.add('local-player')
+            wasVideo = false;
+            videoOn = false;
             document.getElementById('camera_disable').style.display = 'none';
         }
     });
@@ -33,10 +35,22 @@ async function initVideo() {
         document.getElementById("block_remote_btn").style.display = 'block';
         if (stream.getVideoTracks().length === 0){
             video.style.display = 'none';
+            document.getElementById("block_remote_btn").style.display = 'none';
             let noVideoImage = document.getElementById("no_video_remote")
             noVideoImage.style.display = 'block';
         }
     });
+
+    video.events.on('devicesupdated', ({cameras, microphones}) =>{
+        let audiosSelector  =$('#audioSource');
+        let videoSelector = $('#videoSource')
+        cameras.forEach((device) =>{
+            videoSelector.append($(`<option value="${device.deviceId}">${device.label}</option>`))
+        })
+        microphones.forEach((device) =>{
+            audiosSelector.append($(`<option value="${device.deviceId}">${device.label}</option>`))
+        })
+    })
 
     video.events.on('connected', () => {
         statusEl.innerHTML = "Connected";
@@ -133,6 +147,9 @@ function createChatElement(message, answer = false) {
 let chatList = [];
 document.getElementById('inputmess').addEventListener('keyup', sendMessage)
 
+/**
+ * Sending message
+ */
 function sendMessage(event) {
     if (event.key !== 'Enter')
         return;
@@ -150,6 +167,9 @@ function sendMessage(event) {
     chatList.push(chatElement);
 }
 
+/**
+ * Toggle local audio track
+ */
 function toggleMic() {
     let icon = document.getElementById('mic_icon');
     if (micOn) {
@@ -163,6 +183,9 @@ function toggleMic() {
     video.toggleAudio(micOn);
 }
 
+/**
+ * Toggle remote video player
+ */
 function toggleRemoteVideo(){
     let video = document.getElementById("remote-video")
     let noVideoImage = document.getElementById("no_video_remote")
@@ -176,7 +199,9 @@ function toggleRemoteVideo(){
         noVideoImage.style.display = 'none';
     }
 }
-
+/**
+ * Toggle local video track
+ */
 function toggleLocalVideo(){
     videoOn = !videoOn
     video.toggleVideo(videoOn);
@@ -189,6 +214,47 @@ function toggleLocalVideo(){
     }
 }
 
+async function changeDevice(){
+    let audio = $('#audioSource').val();
+    let camera = $('#videoSource').val();
+    console.log(audio);
+    console.log(camera);
+    let constraints = {
+        audio: {
+            deviceId: {
+                exact: audio,
+            }
+        },
+    }
+    if (camera && wasVideo){
+        constraints =
+            {
+            video: {
+                deviceId: {
+                    exact: camera,
+                }
+            }, ...constraints}
+    }
+    video.stopLocalStream();
+    try{
+        await video.startLocalStream(constraints);
+    }
+    catch (err) {
+        console.error(err)
+        delete constraints.video
+        await video.startLocalStream(constraints).catch((err)=> openModal("No access!", String(err)))
+    }
+    await video.replaceStream();
+    video.toggleAudio(micOn)
+    if (wasVideo)
+        video.toggleVideo(videoOn)
+}
+
+/**
+ * Open modal window
+ * @param {String} message title message in modal
+ * @param {String} info additional information in modal
+ */
 function openModal(message, info = "") {
     document.getElementsByTagName('body')[0].classList.add('modal-active');
     document.getElementById('modal-container').className = 'open';
@@ -198,5 +264,27 @@ function openModal(message, info = "") {
     isGameStartMove = false;
     document.getElementById('game-over-sound').play();
 }
+
+function toggleDevicePanel(event){
+    console.log('open')
+    deviceOpened = !deviceOpened
+    if (deviceOpened)
+        document.getElementById('device_panel').classList.remove('hidden');
+    else
+        document.getElementById('device_panel').classList.add('hidden');
+}
+
+function closeDevicePanel(event){
+    if (!deviceOpened)
+        return
+    if (!event.target.closest('#device_toggler') &&
+        !event.target.closest("#device_panel")){
+        deviceOpened = false
+        document.getElementById('device_panel').classList.add('hidden');
+    }
+}
+
+document.getElementById('device_toggler').addEventListener('click', toggleDevicePanel)
+document.getElementsByTagName('body')[0].addEventListener('click', closeDevicePanel,false)
 
 initVideo();

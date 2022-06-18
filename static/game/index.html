@@ -39,9 +39,24 @@
             <img src="../assets/noise_gif.gif" class="video-inside" alt="niose" id="noise_local">
             <img src="../assets/no_video.png" class="video-inside" alt="no video" id="no_video_local" style="display: none">
         </div>
-        <div class="controls">
+        <div class="controls" >
+            <div class="device-select-panel hidden" id="device_panel">
+                <div class="device-select-row">
+                    <label for="audioSource"><i class="fas fa-microphone"></i></label>
+                    <select id="audioSource" class="devices" onchange="changeDevice()">
+
+                    </select>
+                </div>
+                <div class="device-select-row">
+                    <label for="videoSource"><i class="fas fa-video"></i></label>
+                    <select id="videoSource" class="devices" onchange="changeDevice()">
+
+                    </select>
+                </div>
+            </div>
             <div class="round-control" onclick="toggleMic()"><i class="fas icon fa-microphone" id="mic_icon"></i></div>
             <div class="round-control disable-action" onclick="toggleLocalVideo()" id="camera_disable"><i class="fas icon fa-video " id="camera_icon"></i></div>
+            <div class="round-control disable-action" id="device_toggler"><i class="fas icon fa-bars"></i></div>
         </div>
         <div class="controls">
             <button class="btn" disabled id="start_btn"> Ready</button>
@@ -65,7 +80,6 @@
         <div class="players-names" id="player-name">PlayerName</div>
     </div>
 </div>
-
 <div id="modal-container">
     <div class="modal-background">
         <div class="modal">
