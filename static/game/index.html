@@ -28,14 +28,22 @@
         <div id="status">Setting up camera...</div>
     </div>
     <div class="block" id="live">
-        <video autoplay class="video-el remote-player" style="display: none" id="remote-video"></video>
-        <img src="../assets/noise_gif.gif" class="video-el" alt="niose" id="noise_remote">
-        <img src="../assets/no_video.png" class="video-el" alt="niose" id="no_video_remote" style="display: none">
-        <video autoplay class="video-el local-player" id="local-video" muted style="display: none"></video>
-        <img src="../assets/noise_gif.gif" class="video-el" alt="niose" id="noise_local">
-        <img src="../assets/no_video.png" class="video-el" alt="niose" id="no_video_local" style="display: none">
+        <div class="video-el remote-player">
+            <video autoplay class="video-inside " style="display: none" id="remote-video"></video>
+            <div class="round-control close-video-control" onclick="toggleRemoteVideo()" id="block_remote_btn" style="display:none;"><i class="fas icon fa-video" id="show_icon"></i></div>
+            <img src="../assets/no_video.png" class="video-inside" alt="no video" id="no_video_remote" style="display: none">
+            <img src="../assets/noise_gif.gif" class="video-inside" alt="niose" id="noise_remote">
+        </div>
+        <div class="video-el local-player">
+            <video autoplay class="video-inside" id="local-video" muted style="display: none"></video>
+            <img src="../assets/noise_gif.gif" class="video-inside" alt="niose" id="noise_local">
+            <img src="../assets/no_video.png" class="video-inside" alt="no video" id="no_video_local" style="display: none">
+        </div>
         <div class="controls">
-            <div class="voice-control" onclick="toggleMic()"><i class="fas fa-microphone" id="mic_icon"></i></div>
+            <div class="round-control" onclick="toggleMic()"><i class="fas icon fa-microphone" id="mic_icon"></i></div>
+            <div class="round-control" onclick="toggleLocalVideo()"><i class="fas icon fa-video" id="camera_icon"></i></div>
+        </div>
+        <div class="controls">
             <button class="btn" disabled id="start_btn"> Ready</button>
             <a class="btn" href="/">Exit</a>
         </div>

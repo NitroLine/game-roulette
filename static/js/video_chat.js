@@ -3,6 +3,7 @@ let micOn = true;
 let myPeerId = null;
 let isFirst = true;
 let isActive = true;
+let remoteView = true;
 const statusEl = document.getElementById('status');
 const btn = document.getElementById('start_btn');
 
@@ -25,16 +26,13 @@ async function initVideo() {
         let video = document.getElementById("remote-video")
         video.style.display = 'block';
         video.srcObject = stream;
+        remoteView = true;
         document.getElementById("noise_remote").style.display = 'none';
-        console.log(stream);
-        console.log(stream.getVideoTracks())
-        console.log(stream.getTracks());
+        document.getElementById("block_remote_btn").style.display = 'block';
         if (stream.getVideoTracks().length === 0){
             video.style.display = 'none';
-            document.getElementById("no_video_remote").style.display = 'block';
             let noVideoImage = document.getElementById("no_video_remote")
             noVideoImage.style.display = 'block';
-            noVideoImage.classList.add('remote-player')
         }
     });
 
@@ -48,12 +46,13 @@ async function initVideo() {
         btn.disabled = true;
         let noVideoImage = document.getElementById("no_video_remote")
         noVideoImage.style.display = 'none';
-        noVideoImage.classList.remove('remote-player');
-        noVideoImage.classList.add('remote-player');
-        document.getElementById("remote-video").style.display = 'none';
-        document.getElementById("remote-video").style.display = 'none';
-        document.getElementById("no_video_remote").style.display = 'none';
+        let video =document.getElementById("remote-video");
+        video.style.display = 'none';
+        video.style.display = 'none';
+        $('.remote-player').removeClass('border');
+        $('.local-player').removeClass('border');
         document.getElementById("noise_remote").style.display = 'block';
+        document.getElementById("block_remote_btn").style.display = 'none';
     });
 
     video.events.on('peerFound', (peerID) => {
@@ -160,6 +159,20 @@ function toggleMic() {
     }
     micOn = !micOn;
     video.toggleAudio(micOn);
+}
+
+function toggleRemoteVideo(){
+    let video = document.getElementById("remote-video")
+    let noVideoImage = document.getElementById("no_video_remote")
+    remoteView = !remoteView
+    if (!remoteView){
+        video.style.display = 'none';
+        noVideoImage.style.display = 'block';
+    }
+    else{
+        video.style.display = 'block';
+        noVideoImage.style.display = 'none';
+    }
 }
 
 function openModal(message, info = "") {
