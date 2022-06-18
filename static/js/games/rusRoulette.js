@@ -4,6 +4,7 @@ let side = null;
 const playerSides = { first: "first", second: "second" };
 let currentMove = playerSides.first;
 initGame();
+addAudio();
 
 function initGame() {
   $("#game").append($(`
@@ -15,6 +16,20 @@ function initGame() {
                     :
               </div>
         </div>
+    `));
+}
+
+function addAudio() {
+  $("#audios").append($(`
+        <audio id="empty-shot">
+            <source src="../assets/audio/empty-shot.mp3" type="audio/mp3">
+        </audio>
+        <audio id="death-shot">
+            <source src="../assets/audio/inecraft_death.mp3" type="audio/mp3">
+        </audio>
+         <audio id="shot-sound">
+            <source src="../assets/audio/revolver-6.mp3" type="audio/mp3">
+        </audio>
     `));
 }
 
@@ -31,10 +46,13 @@ socket.on("move", () => {
   roundGun();
   console.log(currentMove);
   currentMove = side;
+  $("#empty-shot").trigger("play");
 });
 
 socket.on("gameOver", (status, playerSide) => {
+  $("#shot-sound").trigger("play");
   if (playerSide !== side) {
+    $("#death-shot").trigger("play");
     document.getElementById("title").style.display = "block";
   }
 });
@@ -51,5 +69,6 @@ async function makeMove() {
   const result = await socket.request();
   if (result === MoveStatus.BAD_MOVE) return;
   currentMove = null;
+  $("#empty-shot").trigger("play");
   roundGun();
 }
