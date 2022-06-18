@@ -1,8 +1,15 @@
+/* cyrillic-ext */
+@font-face {
+    font-family: 'ABeeZee';
+    src: url(../main_menu/ABeeZee-Italic.ttf);
+}
+
+
 #grid {
     display: grid;
     position: absolute;
     width: 100%;
-
+    font-family: 'Raleway', Arial, sans-serif;
 }
 
 @media only screen and (max-width: 700px) {
@@ -80,16 +87,13 @@ body {
     text-decoration: #05E7E7 underline;
     font-weight: 1200;
     font-size: 1.5em;
-    font-family: 'Geometria', Arial, sans-serif;
+    font-family: 'Raleway', Arial, sans-serif;
 }
 
 .players-names {
     font-size: 1.5em;
 }
-.players-names::first-letter{
-    color: #05E7E7;
-    font-size: 1.2em;
-}
+
 .videos-container {
     display: flex;
     align-items: center;
@@ -197,7 +201,7 @@ html {
     border-radius: 7px;
     display: flex;
     border: 0;
-    font-family: 'Geometria', Arial, sans-serif;
+    font-family: 'Raleway', Arial, sans-serif;
     opacity: .9;
     margin-left: 5px;
     margin-right: 5px;
@@ -230,12 +234,12 @@ html {
     left: 50%;
     top: 7px;
     z-index: 2;
-    transform: rotate(35deg) scale(1);
+    transform: rotate(-35deg) scale(1);
     transition: .15s linear;
 }
 
 .device-select-panel{
-    background: #172338;
+    background: #fff;
     position: absolute;
     width: 270px;
     padding: 15px 15px 6px;
@@ -248,8 +252,8 @@ html {
 .device-select-row{
     line-height: 50px;
     font-size: 15px;
-    background: #172338;
-    color: #fff;
+    background: #fff;
+    color: black;
     position: relative;
     width: 100%;
     margin-bottom: 14px;
@@ -269,11 +273,11 @@ html {
     border-color: #c3c3c3;
     border-radius: 2px;
     cursor: pointer;
-    background: #b3e8e8;
+    background: transparent;
     height: 35px;
     line-height: normal;
     font-weight: 400;
-    font-family: 'Geometria',Arial,sans-serif;
+    font-family: 'Raleway',Arial,sans-serif;
  }
 #audioSource{
     margin-left: 18px;

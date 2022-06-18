@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'ABeeZee';
+    src: url(../main_menu/ABeeZee-Italic.ttf);
+}
+
 textarea {
     border: 0;
     width: 100%;
@@ -57,7 +62,8 @@ textarea {
 }
 
 .chat-message-text p {
-    font-size: 16px;
+    font-size: 1.1em;
+    font-family: 'Raleway', Arial, sans-serif;
     width: 100%;
     word-wrap: break-word;
 }
