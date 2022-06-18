@@ -1,5 +1,6 @@
 const video = new VideoClient(true);
 let micOn = true;
+let videoOn = true;
 let myPeerId = null;
 let isFirst = true;
 let isActive = true;
@@ -19,6 +20,7 @@ async function initVideo() {
             let noVideoImage = document.getElementById("no_video_local")
             noVideoImage.style.display = 'block';
             noVideoImage.classList.add('local-player')
+            document.getElementById('camera_disable').style.display = 'none';
         }
     });
 
@@ -175,12 +177,25 @@ function toggleRemoteVideo(){
     }
 }
 
+function toggleLocalVideo(){
+    videoOn = !videoOn
+    video.toggleVideo(videoOn);
+    let icon = document.getElementById('camera_disable');
+    if (videoOn){
+        icon.classList.remove('disabled')
+    }
+    else{
+        icon.classList.add('disabled')
+    }
+}
+
 function openModal(message, info = "") {
     document.getElementsByTagName('body')[0].classList.add('modal-active');
     document.getElementById('modal-container').className = 'open';
     document.getElementById('modal-message').innerText = message;
     document.getElementById('modal-info').innerText = info;
     isActive = false;
+    isGameStartMove = false;
     document.getElementById('game-over-sound').play();
 }
 

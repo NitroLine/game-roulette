@@ -47,6 +47,11 @@ class VideoClient {
 
     }
 
+    /**
+     * Request for start local stream
+     * @param {MediaStreamConstraints} constraints
+     * @return {Promise}
+     */
     startLocalStream(constraints = {video: false, audio: true}) {
         return new Promise((resolve, reject) => {
             getUserMedia(constraints, (stream) => {
@@ -57,6 +62,9 @@ class VideoClient {
         });
     }
 
+    /**
+     * Stop local stream
+     */
     stopLocalStream() {
         if (this.localStream) {
             this.localStream.getTracks().forEach(function (track) {
@@ -65,12 +73,27 @@ class VideoClient {
         }
     }
 
+    /**
+     * Toggle audio stream
+     * @param {Boolean} audioState request stream state
+     */
     toggleAudio(audioState) {
         if (this.localStream)
             this.localStream.getAudioTracks()[0].enabled = audioState;
     }
 
+    /**
+     * Toggle video stream
+     * @param {Boolean} videoState request stream state
+     */
+    toggleVideo(videoState) {
+        if (this.localStream)
+            this.localStream.getVideoTracks()[0].enabled = videoState;
+    }
 
+    /**
+     * Init peer connection
+     */
     initPeer() {
         if (this.peer && !this.peer.destroyed) {
             this.peer.destroy()
@@ -138,6 +161,10 @@ class VideoClient {
         }
     }
 
+    /**
+     * Connect to another client by peer id
+     * @param {String} peerId
+     */
     async connect(peerId) {
         if (this.peer.destroyed) {
             this.debug(`Calling connect for destroyed peer with peerId ${peerId}`)
@@ -177,6 +204,9 @@ class VideoClient {
         }
     }
 
+    /**
+     * Close all connections and destroy peer
+     */
     close() {
         if (this.conn !== null || !this.peer.destroyed) {
             this.conn = null;
