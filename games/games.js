@@ -1,6 +1,6 @@
-import {ChessGame} from "./chess-game.js";
-import {TTTGame} from "./ttt-game.js";
+import { ChessGame } from "./chess-game.js";
+import { TTTGame } from "./ttt-game.js";
 
-const games = {chess: ChessGame, ttt: TTTGame};
+const games = { chess: ChessGame, ttt: TTTGame };
 
-export {games};
+export { games };

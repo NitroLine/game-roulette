@@ -1,12 +1,12 @@
 class BaseGame {
-    start() {
-    }
+  start () {
+  }
 
-    move(player, step) {
-    }
+  move (player, step) {
+  }
 
-    getStatus() {
-    }
+  getStatus () {
+  }
 }
 
-export {BaseGame};
+export { BaseGame };
