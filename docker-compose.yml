@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  app:
+    build: .
+    command: npm start
+    ports:
+      - "${PORT}:3000"
+    env_file:
+      - .env
+    restart: on-failure
