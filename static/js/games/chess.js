@@ -41,9 +41,19 @@ const blackSquareGrey = "#696969";
 
 async function initGame() {
   addAudio();
+  addStyles();
   await addScripts();
   board = Chessboard("game", "start");
   game = new Chess();
+}
+
+function addStyles() {
+  $("head").append($(`
+    <link crossorigin="anonymous"
+          href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
+          integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU"
+          rel="stylesheet">
+    `));
 }
 
 function removeGreySquares() {

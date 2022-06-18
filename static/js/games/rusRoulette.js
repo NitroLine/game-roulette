@@ -5,6 +5,7 @@ const playerSides = { first: "first", second: "second" };
 let currentMove = playerSides.first;
 initGame();
 addAudio();
+addStyles();
 
 function initGame() {
   $("#game").append($(`
@@ -30,6 +31,12 @@ function addAudio() {
          <audio id="shot-sound">
             <source src="../assets/audio/revolver-6.mp3" type="audio/mp3">
         </audio>
+    `));
+}
+
+function addStyles() {
+  $("head").append($(`
+        <link href="../css/rusRoullete/style.css" rel="stylesheet">
     `));
 }
 

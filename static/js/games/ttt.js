@@ -6,6 +6,7 @@ let opponentSide = null;
 let currentMove = "X";
 
 addAudios();
+addStyles();
 const game = initGame();
 renderGrid(3);
 
@@ -32,6 +33,12 @@ function initGame() {
         </div>
     `));
   return document.getElementById("fieldWrapper");
+}
+
+function addStyles() {
+  $("head").append($(`
+        <link href="../css/ttt/style.css" rel="stylesheet">
+    `));
 }
 
 function startGame() {
