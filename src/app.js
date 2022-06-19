@@ -7,7 +7,6 @@ import { Server } from "socket.io";
 import { fileURLToPath } from "url";
 import config from "./config.js";
 import registerGameHandlers from "./services/game-handlers.js";
-import {ExpressPeerServer} from "peer";
 
 const {
     port,
@@ -37,10 +36,6 @@ const server = webServer.listen(port, config.host, () => {
 
 const io = new Server(server);
 
-const peerServer = ExpressPeerServer(server, {
-    debug: true,
-    path: '/roapp'
-});
 io.on("connection", (socket) => {
     registerGameHandlers(socket);
 });
@@ -52,6 +47,3 @@ app.use("/", (req, res) => {
     }
     return res.redirect("/v/");
 });
-
-
-app.use('/peerjs', peerServer);
