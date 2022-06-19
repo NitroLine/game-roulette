@@ -46,6 +46,7 @@ jobs:
           envs: IMAGE_NAME, CONTAINER_NAME
           script: |
             cd code/game-roulette/
+            ls -la
             docker stop $(echo $CONTAINER_NAME)
             docker rm $(echo $CONTAINER_NAME)
 
