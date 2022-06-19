@@ -156,14 +156,8 @@ export class VideoClient {
         }
 
         this.peer = new Peer({
-            config: {
-                iceServers: [
-                    { url: "stun:stun.rixtelecom.se" },
-                    { url: "stun:stun.schlund.de" },
-                    { url: "stun:stun.l.google.com:19302" },
-                    { url: "stun:stun1.l.google.com:19302" }
-                ]
-            }
+            host: '/',
+            path: '/peerjs/roapp'
         });
         this.peer.on("open", (peerID) => {
             this.myPeerId = peerID;
