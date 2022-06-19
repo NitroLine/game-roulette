@@ -13,6 +13,7 @@
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
+    overflow: hidden;
 }
 #rus_roulette:before {
     content: '';
@@ -53,10 +54,11 @@
     text-align: center;
     font-size: 360px;
     font-weight: 300;
-    line-height: .358;
+    line-height: .33;
+    text-indent: -.022em;
     z-index: 1;
     transition: all .2s ease-in-out;
-    font-family: monospace;
+    font-family: 'Source Code Pro', monospace;
 }
 #gun:before,
 #gun:after {
