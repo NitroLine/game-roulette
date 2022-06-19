@@ -6,11 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  IMAGE_NAME: "game-roulette"
-  CONTAINER_NAME: "game-roulette"
-  ENV_FILE_PATH: "./code/game-roulette/.env"
-
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -43,13 +38,9 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
-          envs: IMAGE_NAME, CONTAINER_NAME
           script: |
             cd code/game-roulette/
-            ls -la
-            docker stop $(echo $CONTAINER_NAME)
-            docker rm $(echo $CONTAINER_NAME)
+            docker-compose down
 
             git pull
-            docker build -t $(echo $IMAGE_NAME) .
-            docker run -d --restart always --name $(echo $CONTAINER_NAME) $(echo $IMAGE_NAME)
+            docker-compose up --build -d
