@@ -8,7 +8,6 @@ function getOpponentSide(side) {
     if (side === PlayerSide.FIRST) {
         return PlayerSide.SECOND;
     }
-
     return PlayerSide.FIRST;
 }
 
