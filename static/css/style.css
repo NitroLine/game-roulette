@@ -143,8 +143,12 @@ body {
     cursor: pointer;
     border-radius: 50%;
     text-align: center;
-    padding-top: 3px;
     margin: 5px;
+    padding: 0;
+    border: none;
+    appearance: none;
+    box-shadow: none;
+
 }
 
 .icon {
@@ -202,12 +206,15 @@ html {
     display: flex;
     border: 0;
     font-family: 'Raleway', Arial, sans-serif;
-    opacity: .9;
+    opacity: .8;
     margin-left: 5px;
     margin-right: 5px;
     text-decoration: none;
 }
 
+.btn:focus{
+    opacity: .9;
+}
 .btn:hover {
     opacity: 1;
 }

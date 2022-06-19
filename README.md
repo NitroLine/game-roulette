@@ -28,9 +28,8 @@ https://gameroulette.2tapp.cc
 # Запуск
 
 - `npm install`
-- `npm run buld`
 - Setup port in `.env` file 
-- `npm start`
+- `npm start` for build static and start server 
 
 # Технологии
 

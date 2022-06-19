@@ -11,8 +11,9 @@
     "webpack-cli": "^4.10.0"
   },
   "scripts": {
-    "start": "node main.js",
-    "buld": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack --config webpack.config.js && node main.js",
+    "serve": "node main.js"
   },
   "type": "module",
   "devDependencies": {
