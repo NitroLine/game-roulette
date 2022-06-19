@@ -6,13 +6,13 @@
     "jquery": "^3.6.0",
     "peerjs": "^1.4.6",
     "socket.io": "^4.5.0",
-    "socket.io-client": "^4.5.1",
-    "test": "^3.0.1"
+    "socket.io-client": "^4.5.1"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "webpack --config webpack.config.js && node src/app.js",
-    "serve": "src/app.js"
+    "serve": "src/app.js",
+    "test": "mocha src/tests"
   },
   "type": "module",
   "devDependencies": {
@@ -24,6 +24,8 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.3",
     "eslint-plugin-promise": "^6.0.0",
+    "mocha": "^10.0.0",
+    "request": "^2.88.2",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0"
   }
