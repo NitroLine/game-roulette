@@ -1,6 +1,8 @@
+import Peer from "peerjs";
+
 const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || 0;
 
-class EventEmitter {
+export class EventEmitter {
   constructor() {
     this.events = {};
   }
@@ -32,7 +34,7 @@ class EventEmitter {
   }
 }
 
-class VideoClient {
+export class VideoClient {
   constructor(_debug = true) {
     this.conn = null;
     this.myPeerId = null;

@@ -1,9 +1,13 @@
+import {Chess} from "chess.js";
+import {socket} from "../client.js";
+import {MoveStatus} from "../../../server/enums.js";
+
 const playerSides = { first: "while", second: "black" };
 
 let side = null;
 let opponentSide = null;
 
-initGame();
+
 
 socket.on("startGame", async(peerId, playerSide) => {
   console.log(playerSide); // LOG
@@ -39,7 +43,7 @@ const squareClass = "square-55d63";
 const whiteSquareGrey = "#a9a9a9";
 const blackSquareGrey = "#696969";
 
-async function initGame() {
+export async function initGame() {
   addAudio();
   addStyles();
   await addScripts();
@@ -121,7 +125,7 @@ async function onDrop(source, target) {
     return "snapback";
   }
 
-  const status = await socket.request({ from: source, to: target, promotion: "q" });
+  const status = await socket.move({ from: source, to: target, promotion: "q" });
   if (status === MoveStatus.BAD_MOVE) {
     return;
   }
@@ -157,5 +161,4 @@ function loadScript(script) {
 
 async function addScripts() {
   await loadScript("https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js");
-  await loadScript("https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.js");
 }

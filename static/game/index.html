@@ -10,8 +10,7 @@
     <link href="../css/modal.css" rel="stylesheet">
     <script crossorigin="anonymous" src="../js/lib/fontawesome.js"></script>
     <title>Game</title>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script type="text/javascript" src="../js/bundles/app-bundle.js"></script>
     <script crossorigin="anonymous"
             integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
             src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -26,7 +25,7 @@
     <div class="block" id="live">
         <div class="video-el remote-player">
             <video autoplay class="video-inside " style="display: none" id="remote-video"></video>
-            <div class="round-control close-video-control" onclick="toggleRemoteVideo()" id="block_remote_btn" style="display:none;"><i class="fas icon fa-video" id="show_icon"></i></div>
+            <div class="round-control close-video-control" id="block_remote_btn" style="display:none;"><i class="fas icon fa-video" id="show_icon"></i></div>
             <img src="../assets/no_video.png" class="video-inside" alt="no video" id="no_video_remote" style="display: none">
             <img src="../assets/noise_gif.gif" class="video-inside" alt="niose" id="noise_remote">
         </div>
@@ -39,19 +38,19 @@
             <div class="device-select-panel hidden" id="device_panel">
                 <div class="device-select-row">
                     <label for="audioSource"><i class="fas fa-microphone"></i></label>
-                    <select id="audioSource" class="devices" onchange="changeDevice()">
+                    <select id="audioSource" class="devices">
 
                     </select>
                 </div>
                 <div class="device-select-row">
                     <label for="videoSource"><i class="fas fa-video"></i></label>
-                    <select id="videoSource" class="devices" onchange="changeDevice()">
+                    <select id="videoSource" class="devices">
 
                     </select>
                 </div>
             </div>
-            <div class="round-control" onclick="toggleMic()"><i class="fas icon fa-microphone" id="mic_icon"></i></div>
-            <div class="round-control disable-action" onclick="toggleLocalVideo()" id="camera_disable"><i class="fas icon fa-video " id="camera_icon"></i></div>
+            <div class="round-control" id="mic_btn"><i class="fas icon fa-microphone" id="mic_icon"></i></div>
+            <div class="round-control disable-action" id="camera_disable"><i class="fas icon fa-video " id="camera_icon"></i></div>
             <div class="round-control disable-action" id="device_toggler"><i class="fas icon fa-bars"></i></div>
         </div>
         <div class="controls">
@@ -99,9 +98,6 @@
 </div>
 
 <div id="scripts">
-    <script src="../js/VideoClient.js"></script>
-    <script src="../js/client.js"></script>
-    <script src="../js/video_chat.js"></script>
 </div>
 </body>
 </html>

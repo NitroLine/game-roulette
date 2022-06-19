@@ -1,14 +1,21 @@
+import {socket} from "../client.js";
+import {MoveStatus} from "../../../server/enums.js";
+
 const EMPTY = " ";
 const playerSides = { first: "X", second: "O" };
 
 let side = null;
 let opponentSide = null;
 let currentMove = "X";
+let game = null;
 
-addAudios();
-addStyles();
-const game = initGame();
-renderGrid(3);
+export function initGame(){
+  addAudios();
+  addStyles();
+  game = initField()
+  renderGrid(3);
+}
+
 
 socket.on("startGame", async(peerId, playerSide) => {
   console.log(playerSide); // LOG
@@ -24,7 +31,7 @@ socket.on("move", (move) => {
   currentMove = side;
 });
 
-function initGame() {
+function initField() {
   $("#game").append($(`
         <div class="container">
             <table class="table">
@@ -66,7 +73,7 @@ async function cellClickHandler(row, col) {
     return;
   }
 
-  const result = await socket.request({ row, col });
+  const result = await socket.move({ row, col });
   if (result === MoveStatus.BAD_MOVE) {
     return;
   }

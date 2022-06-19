@@ -1,13 +1,15 @@
+import {socket} from "../client.js";
+import {GameStatus, MoveStatus} from "../../../server/enums.js";
 
 let chamber = 1;
 let side = null;
 const playerSides = { first: "first", second: "second" };
 let currentMove = playerSides.first;
-initGame();
-addAudio();
-addStyles();
 
-function initGame() {
+
+export function initGame() {
+  addAudio();
+  addStyles();
   $("#game").append($(`
         <div id="rus_roulette" onclick="makeMove()">
               <div id="title" style="display: none">
@@ -75,7 +77,7 @@ function roundGun() {
 async function makeMove() {
   console.log(currentMove, side);
   if (side !== currentMove) { return; }
-  const result = await socket.request();
+  const result = await socket.move();
   if (result === MoveStatus.BAD_MOVE) return;
   currentMove = null;
   $("#empty-shot").trigger("play");

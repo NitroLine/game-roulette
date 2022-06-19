@@ -1,4 +1,7 @@
-const video = new VideoClient(true);
+import {VideoClient} from "./VideoClient.js";
+import {gameType, socket, username, viewPlayerUsernames} from "./client.js";
+
+export const video = new VideoClient(true);
 let micOn = true;
 let videoOn = true;
 let wasVideo = true;
@@ -7,8 +10,8 @@ let isFirst = true;
 let isActive = true;
 let deviceOpened = false;
 let remoteView = true;
-const statusEl = document.getElementById("status");
-const btn = document.getElementById("start_btn");
+let statusEl = null;
+let btn = null;
 
 async function initVideo() {
   video.events.on("localstreamupdate", (stream) => {
@@ -150,7 +153,7 @@ function createChatElement(message, answer = false) {
 }
 
 const chatList = [];
-document.getElementById("inputmess").addEventListener("keyup", sendMessage);
+
 
 /**
  * Sending message
@@ -268,13 +271,12 @@ async function changeDevice() {
  * @param {String} message title message in modal
  * @param {String} info additional information in modal
  */
-function openModal(message, info = "") {
+export function openModal(message, info = "") {
   document.getElementsByTagName("body")[0].classList.add("modal-active");
   document.getElementById("modal-container").className = "open";
   document.getElementById("modal-message").innerText = message;
   document.getElementById("modal-info").innerText = info;
   isActive = false;
-  isGameStartMove = false;
   document.getElementById("game-over-sound").play();
 }
 
@@ -292,7 +294,6 @@ function closeDevicePanel(event) {
   if (!deviceOpened) {
     return;
   }
-
   if (!event.target.closest("#device_toggler") &&
         !event.target.closest("#device_panel")) {
     deviceOpened = false;
@@ -300,7 +301,17 @@ function closeDevicePanel(event) {
   }
 }
 
-document.getElementById("device_toggler").addEventListener("click", toggleDevicePanel);
-document.getElementsByTagName("body")[0].addEventListener("click", closeDevicePanel, false);
+window.addEventListener('load', ()=>{
+  document.getElementById("device_toggler").addEventListener("click", toggleDevicePanel);
+  document.getElementsByTagName("body")[0].addEventListener("click", closeDevicePanel, false);
+  document.getElementById("inputmess").addEventListener("keyup", sendMessage);
+  document.getElementById("block_remote_btn").addEventListener('click', toggleRemoteVideo);
+  document.getElementById("audioSource").addEventListener('change', changeDevice);
+  document.getElementById("videoSource").addEventListener('change', changeDevice);
+  document.getElementById("mic_btn").addEventListener('click', toggleMic);
+  document.getElementById("camera_disable").addEventListener('click', toggleLocalVideo);
+  statusEl = document.getElementById("status");
+  btn = document.getElementById("start_btn");
+  initVideo();
+})
 
-initVideo();

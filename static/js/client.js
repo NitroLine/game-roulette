@@ -1,12 +1,16 @@
-const socket = io(`${window.location.protocol}//${window.location.host}`);
-const GameStatus = { WIN: "win", DRAW: "draw", TECH_WIN: "technical win" };
-const MoveStatus = { OK: "ok", BAD_MOVE: "bad move" };
-const PlayerSide = { FIRST: "first", SECOND: "second" };
+import io from 'socket.io-client'
+import {GameStatus} from "../../server/enums.js";
+import {MoveStatus} from "../../server/enums.js";
+import {PlayerSide} from "../../server/enums.js";
+import {openModal, video} from "./video_chat.js";
+
+export const socket = io(`${window.location.protocol}//${window.location.host}`);
+
 
 const GameScript = {
-  chess: "../js/games/chess.js",
-  ttt: "../js/games/ttt.js",
-  rusRoulette: "../js/games/rusRoulette.js"
+  chess: () => import(/* webpackChunkName: "chess" */ './games/chess.js'),
+  ttt: () => import(/* webpackChunkName: "ttt" */ './games/ttt.js'),
+  rusRoulette: () => import(/* webpackChunkName: "rusRoulette" */ './games/rusRoulette.js')
 };
 
 const winMessage = "You Win!";
@@ -14,18 +18,24 @@ const loseMessage = "You Lose!";
 const drawMessage = "Draw!";
 const technicalMessage = "You opponent left this game!";
 
-const gameType = new URLSearchParams(window.location.search).get("type");
-const username = new URLSearchParams(window.location.search).get("name");
-viewPlayerUsernames(username);
+const searchParams = new URLSearchParams(window.location.search)
+export const gameType = searchParams.get("type");
+export const username = searchParams.get("name");
+
 let enemyUsername = null;
 let isGameStartMove = false;
-const script = document.createElement("script");
-script.src = GameScript[gameType];
-document.getElementById("scripts").appendChild(script);
+
+window.addEventListener('load', ()=>{
+  viewPlayerUsernames(username);
+  GameScript[gameType]().then(module=>{
+    module.initGame()
+  });
+})
+
 
 let playerNumber = null;
 
-socket.request = function(arg) {
+socket.move = function(arg) {
   return new Promise((resolve) => {
     socket.emit("move", arg, (status) => {
       if (status === MoveStatus.BAD_MOVE) {
@@ -55,10 +65,12 @@ socket.on("gameOver", (status, playerSide) => {
       if (playerNumber === playerSide) {
         console.log("You Win"); // LOG
         openModal(winMessage);
+        isGameStartMove = false;
         document.getElementById("status").innerHTML = "You win";
       } else {
         console.log("You lose"); // LOG
         openModal(loseMessage);
+        isGameStartMove = false;
         document.getElementById("status").innerHTML = "You lose";
       }
 
@@ -66,12 +78,14 @@ socket.on("gameOver", (status, playerSide) => {
     case GameStatus.DRAW:
       console.log("Draw"); // LOG
       openModal(drawMessage);
+      isGameStartMove = false;
       document.getElementById("status").innerHTML = "Draw";
       break;
     case GameStatus.TECH_WIN:
       console.log("TECH WIN"); // LOG
       if (isGameStartMove) {
         openModal(winMessage, technicalMessage);
+        isGameStartMove = false;
       }
 
       break;
@@ -94,15 +108,15 @@ function changeWhoMoveView(prevPlayer, nextPlayer) {
   const prevVideo = (prevPlayer === playerNumber) ? ".remote-player" : ".local-player";
   const nextVideo = (nextPlayer === playerNumber) ? ".remote-player" : ".local-player";
   console.log(prevVideo, nextVideo, prevPlayer, nextPlayer);
-  $(prevVideo).removeClass("border");
-  $(nextVideo).addClass("border");
+  document.querySelector(prevVideo).classList.remove("border");
+  document.querySelector(nextVideo).classList.add("border");
 }
 
-function getOpponentSide(playerSide) {
+export function getOpponentSide(playerSide) {
   return (playerSide === PlayerSide.FIRST) ? PlayerSide.SECOND : PlayerSide.FIRST;
 }
 
-function viewPlayerUsernames(currName, enemyName = "...") {
+export function viewPlayerUsernames(currName, enemyName = "...") {
   document.getElementById("player-name").innerText = currName;
   document.getElementById("enemy-name").innerText = enemyName;
 }
