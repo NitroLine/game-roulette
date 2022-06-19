@@ -18,6 +18,9 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v3
+        
+      - name: Install dependecies
+        run: npm install --only=dev 
 
       - name: Run ESLint
         uses: wearerequired/lint-action@v2
