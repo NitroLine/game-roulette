@@ -57,7 +57,7 @@ socket.on("move", () => {
 });
 
 socket.on("gameOver", (status, playerSide) => {
-  if(status !== GameStatus.TECH_WIN){
+  if (status !== GameStatus.TECH_WIN) {
     $("#shot-sound").trigger("play");
     if (playerSide !== side) {
       $("#death-shot").trigger("play");
