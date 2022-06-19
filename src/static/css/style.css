@@ -15,10 +15,11 @@
 @media only screen and (max-width: 700px) {
     #grid {
         grid-template-areas: "game" "menu" "live" "chat";
-        grid-template-rows: 30% 5% 35% 30% ;
+        grid-template-rows: 30% 5% 35% 30%;
         grid-template-columns: 100%;
         height: 200%;
     }
+
     .controls {
         height: 20%;
     }
@@ -31,6 +32,7 @@
         grid-template-columns: 25% 45% 30%;
         height: 99%;
     }
+
     .controls {
         height: 10%;
     }
@@ -43,6 +45,7 @@
         grid-template-columns: 25% 45% 30%;
         height: 90%;
     }
+
     .controls {
         height: 9%;
     }
@@ -99,15 +102,18 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .controls {
     margin-top: 5px;
     display: flex;
     min-height: 50px;
     padding-left: 5px;
 }
-.hidden{
+
+.hidden {
     display: none;
 }
+
 .video-el {
     max-height: 40%;
     width: auto;
@@ -117,17 +123,17 @@ body {
     justify-content: center;
 }
 
-.video-el:hover .close-video-control{
+.video-el:hover .close-video-control {
     opacity: 1;
     transition: all 0.3s ease;
 }
 
-.video-inside{
+.video-inside {
     max-height: 100%;
     width: auto;
 }
 
-.close-video-control{
+.close-video-control {
     position: absolute;
     left: 5px;
     opacity: 0;
@@ -159,7 +165,7 @@ body {
     speak: none;
 }
 
-.fas.icon{
+.fas.icon {
     line-height: 1.75em;
 }
 
@@ -167,11 +173,11 @@ body {
     border: #05E7E7 10px solid;
 }
 
-.remote-player.border{
+.remote-player.border {
     border-radius: 5px 5px 0 0;
 }
 
-.local-player.border{
+.local-player.border {
     border-radius: 0 0 5px 5px;
 }
 
@@ -215,9 +221,10 @@ html {
     text-decoration: none;
 }
 
-.btn:focus{
+.btn:focus {
     opacity: .9;
 }
+
 .btn:hover {
     opacity: 1;
 }
@@ -232,9 +239,11 @@ html {
 .player-names {
     font-size: 2em;
 }
-.disable-action{
+
+.disable-action {
     position: relative;
 }
+
 .disable-action.disabled:before {
     content: '';
     width: 2px;
@@ -248,7 +257,7 @@ html {
     transition: .15s linear;
 }
 
-.device-select-panel{
+.device-select-panel {
     background: #fff;
     position: absolute;
     width: 270px;
@@ -259,7 +268,7 @@ html {
     margin: -150px -120px 20px 0;
 }
 
-.device-select-row{
+.device-select-row {
     line-height: 50px;
     font-size: 15px;
     background: #fff;
@@ -273,7 +282,7 @@ html {
     align-items: center;
 }
 
-.device-select-row .devices{
+.device-select-row .devices {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -287,13 +296,14 @@ html {
     height: 35px;
     line-height: normal;
     font-weight: 400;
-    font-family: 'Raleway',Arial,sans-serif;
- }
-#audioSource{
+    font-family: 'Raleway', Arial, sans-serif;
+}
+
+#audioSource {
     margin-left: 18px;
 }
 
-.device-select-row .togler label{
+.device-select-row .togler label {
     color: #8c8c8c;
     font-size: 18px;
     padding-left: 3px;

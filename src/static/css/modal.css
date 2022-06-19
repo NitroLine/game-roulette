@@ -104,6 +104,7 @@ html.modal-active, body.modal-active {
     text-align: center;
     vertical-align: middle;
 }
+
 #modal-container .modal-background .modal {
     background: white;
     padding: 50px;
@@ -112,6 +113,7 @@ html.modal-active, body.modal-active {
     font-weight: 300;
     position: relative;
 }
+
 #modal-container .modal-background .modal h2 {
     font-size: 25px;
     line-height: 25px;
@@ -121,6 +123,7 @@ html.modal-active, body.modal-active {
 #modal-container .modal-background .modal .btn {
     margin: auto;
 }
+
 #modal-container .modal-background .modal p {
     font-size: 18px;
     line-height: 22px;
