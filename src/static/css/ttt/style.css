@@ -10,7 +10,8 @@
         height: 10vw;
         font-size: 8vh;
     }
-    .container{
+
+    .container {
         margin: 5px auto;
     }
 }
@@ -21,7 +22,8 @@
         height: 10vh;
         font-size: 8vh;
     }
-    .container{
+
+    .container {
         margin: 40px auto;
     }
 }
