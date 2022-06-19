@@ -1,5 +1,5 @@
 import {socket} from "../client.js";
-import {GameStatus, MoveStatus} from "../../../services/enums.js";
+import {GameStatus, MoveStatus} from "../../services/enums.js";
 
 let chamber = 1;
 let side = null;

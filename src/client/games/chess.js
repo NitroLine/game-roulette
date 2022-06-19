@@ -1,6 +1,6 @@
 import { Chess } from "chess.js";
 import { socket } from "../client.js";
-import { MoveStatus } from "../../../services/enums.js";
+import { MoveStatus } from "../../services/enums.js";
 
 const playerSides = {
     first: "while",
@@ -109,14 +109,14 @@ function onDragStart(source, piece) {
     if (game.game_over()) {
         return false;
     }
-    $('html').addClass("diableSelection");
+    $("html").addClass("diableSelection");
     if (piece && piece[0] === opponentSide) {
         return false;
     }
 }
 
 async function onDrop(source, target) {
-    $('html').removeClass("diableSelection");
+    $("html").removeClass("diableSelection");
     const move = game.move({
         from: source,
         to: target,

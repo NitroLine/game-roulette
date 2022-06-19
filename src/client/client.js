@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
-import {GameStatus} from "../../services/enums.js";
-import {MoveStatus} from "../../services/enums.js";
-import {PlayerSide} from "../../services/enums.js";
+import {GameStatus} from "../services/enums.js";
+import {MoveStatus} from "../services/enums.js";
+import {PlayerSide} from "../services/enums.js";
 import {openModal, video} from "./video-chat.js";
 
 export const socket = io(`${window.location.protocol}//${window.location.host}`);

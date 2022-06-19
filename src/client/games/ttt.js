@@ -1,5 +1,5 @@
 import {socket} from "../client.js";
-import {MoveStatus} from "../../../services/enums.js";
+import {MoveStatus} from "../../services/enums.js";
 
 const EMPTY = " ";
 const playerSides = { first: "X", second: "O" };
