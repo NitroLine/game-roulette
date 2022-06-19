@@ -108,6 +108,9 @@ function onDragStart(source, piece) {
   if (game.game_over()) {
     return false;
   }
+  $(document).on('touchstart', function(e) {
+    e.preventDefault();
+  });
 
   if (piece && piece[0] === opponentSide) {
     return false;
@@ -115,6 +118,7 @@ function onDragStart(source, piece) {
 }
 
 async function onDrop(source, target) {
+  $(document).off('touchstart');
   const move = game.move({
     from: source,
     to: target,
