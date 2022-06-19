@@ -43,6 +43,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSHKEY }}
+          envs: IMAGE_NAME, CONTAINER_NAME
           script: |
             docker stop $(echo $CONTAINER_NAME)
             docker rm $(echo $CONTAINER_NAME)
