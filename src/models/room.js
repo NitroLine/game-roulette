@@ -1,6 +1,6 @@
-import { games } from "../games/games.js";
+import { games } from "./games.js";
 
-class Room {
+export class Room {
   constructor(player1, gameType) {
     this.player1 = player1;
     this.player2 = null;
@@ -13,5 +13,3 @@ class Room {
     this.player2 = player2;
   }
 }
-
-export { Room };

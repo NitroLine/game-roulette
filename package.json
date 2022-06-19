@@ -11,7 +11,7 @@
     "webpack-cli": "^4.10.0"
   },
   "scripts": {
-    "start": "node main.js",
+    "start": "node src/app.js",
     "buld": "webpack --config webpack.config.js"
   },
   "type": "module",

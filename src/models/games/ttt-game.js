@@ -1,5 +1,5 @@
 import { BaseGame } from "./base-game.js";
-import { GameStatus, MoveStatus, PlayerSide } from "../server/enums.js";
+import { GameStatus, MoveStatus, PlayerSide } from "../../services/enums.js";
 
 const Field = { CROSS: "X", ZERO: "O", EMPTY: " " };
 const symbolPlayer = { X: PlayerSide.FIRST, O: PlayerSide.SECOND };

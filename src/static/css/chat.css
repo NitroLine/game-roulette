@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'ABeeZee';
-    src: url(../main_menu/ABeeZee-Italic.ttf);
+    src: url(../assets/fonts/ABeeZee-Italic.ttf);
 }
 
 textarea {
@@ -72,7 +72,7 @@ textarea {
     padding: 12px 10px 8px;
     border-radius: 6px;
     background: #608dff;
-    box-shadow: 0 0 3px rgb(0 0 0 / 40%);
+    box-shadow: 0 0 3px rgba(0 0 0 0.4);
     max-width: 200px;
 }
 

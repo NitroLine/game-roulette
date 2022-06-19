@@ -1,8 +1,8 @@
 import io from 'socket.io-client'
-import {GameStatus} from "../../server/enums.js";
-import {MoveStatus} from "../../server/enums.js";
-import {PlayerSide} from "../../server/enums.js";
-import {openModal, video} from "./video_chat.js";
+import {GameStatus} from "../../services/enums.js";
+import {MoveStatus} from "../../services/enums.js";
+import {PlayerSide} from "../../services/enums.js";
+import {openModal, video} from "./video-chat.js";
 
 export const socket = io(`${window.location.protocol}//${window.location.host}`);
 
@@ -10,7 +10,7 @@ export const socket = io(`${window.location.protocol}//${window.location.host}`)
 const GameScript = {
   chess: () => import(/* webpackChunkName: "chess" */ './games/chess.js'),
   ttt: () => import(/* webpackChunkName: "ttt" */ './games/ttt.js'),
-  rusRoulette: () => import(/* webpackChunkName: "rusRoulette" */ './games/rusRoulette.js')
+  rusRoulette: () => import(/* webpackChunkName: "rusRoulette" */ './games/rus-roulette.js')
 };
 
 const winMessage = "You Win!";
