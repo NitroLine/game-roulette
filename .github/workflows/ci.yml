@@ -37,9 +37,6 @@ jobs:
     needs: lint
 
     steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
       - name: Build and deploy
         uses: appleboy/ssh-action@v0.1.3
         with:
@@ -48,9 +45,10 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           envs: IMAGE_NAME, CONTAINER_NAME
           script: |
-            ls -la
+            cd code/game-roulette/
             docker stop $(echo $CONTAINER_NAME)
             docker rm $(echo $CONTAINER_NAME)
 
+            git pull
             docker build -t $(echo $IMAGE_NAME) .
             docker run -d --restart always --name $(echo $CONTAINER_NAME) $(echo $IMAGE_NAME)
