@@ -11,7 +11,7 @@
   "type": "module",
   "devDependencies": {
     "eslint": "^8.18.0",
-    "eslint-config-xo": "^0.41.0",
+    "eslint-config-standard": "^0.41.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.3",
     "eslint-plugin-promise": "^6.0.0"
