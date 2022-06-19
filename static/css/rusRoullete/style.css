@@ -56,7 +56,7 @@
     line-height: .358;
     z-index: 1;
     transition: all .2s ease-in-out;
-    font-family: 'Source Code Pro', monospace;
+    font-family: monospace;
 }
 #gun:before,
 #gun:after {
