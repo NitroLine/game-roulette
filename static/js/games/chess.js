@@ -108,8 +108,7 @@ function onDragStart(source, piece) {
   if (game.game_over()) {
     return false;
   }
-  $("html").addClass("diableSelection");
-
+  $('html').addClass("diableSelection");
   if (piece && piece[0] === opponentSide) {
     return false;
   }
