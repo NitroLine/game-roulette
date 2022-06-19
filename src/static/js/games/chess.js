@@ -109,13 +109,14 @@ function onDragStart(source, piece) {
     if (game.game_over()) {
         return false;
     }
-
+    $('html').addClass("diableSelection");
     if (piece && piece[0] === opponentSide) {
         return false;
     }
 }
 
 async function onDrop(source, target) {
+    $('html').removeClass("diableSelection");
     const move = game.move({
         from: source,
         to: target,
