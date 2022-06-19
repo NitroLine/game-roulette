@@ -6,12 +6,13 @@
     "jquery": "^3.6.0",
     "peerjs": "^1.4.6",
     "socket.io": "^4.5.0",
-    "socket.io-client": "^4.5.1"
+    "socket.io-client": "^4.5.1",
+    "test": "^3.0.1"
   },
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "webpack --config webpack.config.js && node src/app.js",
-    "serve": "src/app.js",
+    "serve": "src/app.js"
   },
   "type": "module",
   "devDependencies": {
