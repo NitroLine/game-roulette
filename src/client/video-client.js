@@ -156,7 +156,7 @@ export class VideoClient {
         }
 
         this.peer = new Peer({
-            host: ':3000/',
+            host: '/',
             path: '/peerjs/roapp'
         });
         this.peer.on("open", (peerID) => {
