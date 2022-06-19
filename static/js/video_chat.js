@@ -69,8 +69,8 @@ async function initVideo() {
     video.style.display = "none";
     video.style.display = "none";
     viewPlayerUsernames(username);
-    $(".remote-player").removeClass("border");
-    $(".local-player").removeClass("border");
+    document.querySelector(".noise_remote").classList.remove('border')
+    document.querySelector(".remote-player").classList.remove('border')
     document.getElementById("noise_remote").style.display = "block";
     document.getElementById("block_remote_btn").style.display = "none";
   });
@@ -109,7 +109,6 @@ async function initVideo() {
       success = false;
     }
   }
-
   if (success) {
     video.init();
   }
@@ -128,9 +127,7 @@ function start() {
 
 function nextOpponent() {
   console.log("NEXT OPPONENT");
-  viewPlayerUsernames(username);
   video.close();
-  video.active = true;
   socket.emit("leave");
   btn.disabled = true;
   isActive = true;
@@ -280,7 +277,7 @@ export function openModal(message, info = "") {
   document.getElementById("game-over-sound").play();
 }
 
-function toggleDevicePanel(event) {
+function toggleDevicePanel() {
   console.log("open");
   deviceOpened = !deviceOpened;
   if (deviceOpened) {
