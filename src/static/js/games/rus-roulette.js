@@ -11,7 +11,7 @@ export function initGame() {
   addAudio();
   addStyles();
   $("#game").append($(`
-        <div id="rus_roulette" onclick="makeMove()">
+        <div id="rus_roulette">
               <div id="title" style="display: none">
                    
               </div>
@@ -20,6 +20,7 @@ export function initGame() {
               </div>
         </div>
     `));
+  $('#rus_roulette').addEventListener("click", makeMove)
 }
 
 function addAudio() {
