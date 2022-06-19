@@ -1,0 +1,300 @@
+/* cyrillic-ext */
+@font-face {
+    font-family: 'ABeeZee';
+    src: url(../assets/fonts/ABeeZee-Italic.ttf);
+}
+
+
+#grid {
+    display: grid;
+    position: absolute;
+    width: 100%;
+    font-family: 'Raleway', Arial, sans-serif;
+}
+
+@media only screen and (max-width: 700px) {
+    #grid {
+        grid-template-areas: "game" "menu" "live" "chat";
+        grid-template-rows: 30% 5% 35% 30% ;
+        grid-template-columns: 100%;
+        height: 200%;
+    }
+    .controls {
+        height: 20%;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    #grid {
+        grid-template-areas: "live game chat" "live game chat" "menu game chat";
+        grid-template-rows: 0 95% 5%;
+        grid-template-columns: 25% 45% 30%;
+        height: 99%;
+    }
+    .controls {
+        height: 10%;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    #grid {
+        grid-template-areas: "live game chat" "live game chat" "menu game chat";
+        grid-template-rows: 0 95% 5%;
+        grid-template-columns: 25% 45% 30%;
+        height: 90%;
+    }
+    .controls {
+        height: 9%;
+    }
+}
+
+
+body {
+    background-color: #161B22;
+    color: white;
+}
+
+#menu {
+    grid-area: menu;
+}
+
+#controls {
+    grid-area: controls;
+}
+
+#live {
+    grid-area: live;
+    margin-left: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#chat-area {
+    grid-area: chat;
+
+    position: relative;
+    width: 100%;
+}
+
+#game-block {
+    grid-area: game;
+    margin: 30px;
+}
+
+#status {
+    padding: 5px;
+    text-decoration: #05E7E7 underline;
+    font-weight: 1200;
+    font-size: 1.5em;
+    font-family: 'Raleway', Arial, sans-serif;
+}
+
+.players-names {
+    font-size: 1.5em;
+}
+
+.videos-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.controls {
+    margin-top: 5px;
+    display: flex;
+    min-height: 50px;
+    padding-left: 5px;
+}
+.hidden{
+    display: none;
+}
+.video-el {
+    max-height: 40%;
+    width: auto;
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.video-el:hover .close-video-control{
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.video-inside{
+    max-height: 100%;
+    width: auto;
+}
+
+.close-video-control{
+    position: absolute;
+    left: 5px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+
+.round-control {
+    width: 45px;
+    height: 45px;
+    background: #4c4c4cb0;
+    color: #e0e0e0;
+    cursor: pointer;
+    border-radius: 50%;
+    text-align: center;
+    margin: 5px;
+    padding: 0;
+    border: none;
+    appearance: none;
+    box-shadow: none;
+}
+
+.diableSelection {
+    overflow: hidden;
+}
+
+.icon {
+    font-size: 22px;
+    speak: none;
+}
+
+.fas.icon{
+    line-height: 1.75em;
+}
+
+.border {
+    border: #05E7E7 10px solid;
+}
+
+.remote-player.border{
+    border-radius: 5px 5px 0 0;
+}
+
+.local-player.border{
+    border-radius: 0 0 5px 5px;
+}
+
+img, video {
+    height: auto;
+    max-width: 100%;
+}
+
+
+blockquote, body, dd, dl, dt, fieldset, figure, h1, h2, h3, h4, h5, h6, hr, html, iframe, legend, li, ol, p, pre, textarea, ul {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.btn {
+    justify-content: center;
+    font-weight: 700;
+    appearance: none;
+    box-shadow: none;
+    min-width: 70px;
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+    background: #608dff;
+    height: 44px;
+    align-items: center;
+    padding: 0 45px;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 7px;
+    display: flex;
+    border: 0;
+    font-family: 'Raleway', Arial, sans-serif;
+    opacity: .8;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+
+.btn:focus{
+    opacity: .9;
+}
+.btn:hover {
+    opacity: 1;
+}
+
+.btn:disabled {
+    background: rgb(99, 99, 99);
+    opacity: 1;
+    cursor: auto;
+}
+
+
+.player-names {
+    font-size: 2em;
+}
+.disable-action{
+    position: relative;
+}
+.disable-action.disabled:before {
+    content: '';
+    width: 2px;
+    height: 31px;
+    background: #fff;
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    z-index: 2;
+    transform: rotate(-35deg) scale(1);
+    transition: .15s linear;
+}
+
+.device-select-panel{
+    background: #fff;
+    position: absolute;
+    width: 270px;
+    padding: 15px 15px 6px;
+    box-shadow: 0 1px 3px 0 #000;
+    border-radius: 5px;
+    z-index: 9999;
+    margin: -150px -120px 20px 0;
+}
+
+.device-select-row{
+    line-height: 50px;
+    font-size: 15px;
+    background: #fff;
+    color: black;
+    position: relative;
+    width: 100%;
+    margin-bottom: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.device-select-row .devices{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+    flex: 1;
+    width: calc(100% - 18px);
+    border-color: #c3c3c3;
+    border-radius: 2px;
+    cursor: pointer;
+    background: transparent;
+    height: 35px;
+    line-height: normal;
+    font-weight: 400;
+    font-family: 'Raleway',Arial,sans-serif;
+ }
+#audioSource{
+    margin-left: 18px;
+}
+
+.device-select-row .togler label{
+    color: #8c8c8c;
+    font-size: 18px;
+    padding-left: 3px;
+}
