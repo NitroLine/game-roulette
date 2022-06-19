@@ -20,7 +20,7 @@ export function initGame() {
               </div>
         </div>
     `));
-  $('#rus_roulette').addEventListener("click", makeMove)
+  $('#rus_roulette').on("click", makeMove)
 }
 
 function addAudio() {
@@ -39,7 +39,7 @@ function addAudio() {
 
 function addStyles() {
   $("head").append($(`
-        <link href="../css/rusRoullete/style.css" rel="stylesheet">
+        <link href="../css/rus-roullete/style.css" rel="stylesheet">
     `));
 }
 
